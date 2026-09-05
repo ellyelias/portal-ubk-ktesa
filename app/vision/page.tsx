@@ -28,7 +28,7 @@ const universities:Record<string,University>={
 } as const;
 type UniKey=keyof typeof universities;
 
-type PosterValues={name:string;career:string;current:string;target:string;muet:string};
+type PosterValues={name:string;career:string;current:string;target:string;muet:string;next:string};
 
 function wrap(ctx:CanvasRenderingContext2D,text:string,x:number,y:number,max:number,line=42){
  const words=text.split(" "); let row=""; let yy=y;
@@ -73,6 +73,9 @@ function paintPoster(ctx:CanvasRenderingContext2D,u:University,v:PosterValues){
  // Kotak "MUET"
  pillBg(ctx,594,R2,300,58);
  ctx.fillStyle="#fff";ctx.font="700 27px Arial";ctx.fillText(v.muet.toUpperCase(),594,R2+10);
+ // Kotak "Apa perlu saya buat?" (lebih lebar)
+ pillBg(ctx,945,R2+20,410,96,18,0.6);
+ ctx.fillStyle="#fff";ctx.font="700 21px Arial";wrap(ctx,v.next.toUpperCase(),945,R2+10,370,26);
 }
 
 export default function VisionPage(){
@@ -80,6 +83,7 @@ export default function VisionPage(){
  const [name,setName]=useState("Alya"); const [uni,setUni]=useState<UniKey>("UM");
  const [course,setCourse]=useState("Sarjana Muda Undang-undang"); const [career,setCareer]=useState("Peguam");
  const [current,setCurrent]=useState("3.25"); const [target,setTarget]=useState("3.50"); const [muet,setMuet]=useState("Band 4.0");
+ const [next,setNext]=useState("Tingkatkan latihan Matematik dan semak kemajuan setiap minggu");
  const [downloadCount,setDownloadCount]=useState(0);
  const u=universities[uni];
  const previewRef=useRef<HTMLCanvasElement>(null);
@@ -96,7 +100,7 @@ export default function VisionPage(){
  useEffect(()=>{
   const canvas=previewRef.current; if(!canvas) return;
   const ctx=canvas.getContext("2d"); if(!ctx) return;
-  const vals:PosterValues={name,career,current,target,muet};
+  const vals:PosterValues={name,career,current,target,muet,next};
   const cached=imgCache.current[u.bg];
   if(cached){
    ctx.clearRect(0,0,1200,1500); drawCover(ctx,cached,1200,1500); paintPoster(ctx,u,vals);
@@ -106,14 +110,14 @@ export default function VisionPage(){
    img.onerror=()=>{ctx.fillStyle=u.deep; ctx.fillRect(0,0,1200,1500); paintPoster(ctx,u,vals)};
    img.src=u.bg;
   }
- },[uni,name,career,current,target,muet,u]);
- const t=lang==="bm"?{tag:"Lebih daripada sebuah ijazah",subtag:"Satu sumbangan untuk masyarakat",university:"UNIVERSITI PILIHAN",course:"KURSUS PILIHAN",career:"KERJAYA IMPIAN",current:"PNGK SEMASA",target:"SASARAN PNGK",download:"Muat turun Vision Board"}:{tag:"More than a degree",subtag:"A contribution to society",university:"UNIVERSITY OF CHOICE",course:"CHOSEN PROGRAMME",career:"DREAM CAREER",current:"CURRENT CGPA",target:"TARGET CGPA",download:"Download Vision Board"};
+ },[uni,name,career,current,target,muet,next,u]);
+ const t=lang==="bm"?{tag:"Lebih daripada sebuah ijazah",subtag:"Satu sumbangan untuk masyarakat",university:"UNIVERSITI PILIHAN",course:"KURSUS PILIHAN",career:"KERJAYA IMPIAN",current:"PNGK SEMASA",target:"SASARAN PNGK",action:"APA PERLU SAYA BUAT?",download:"Muat turun Vision Board"}:{tag:"More than a degree",subtag:"A contribution to society",university:"UNIVERSITY OF CHOICE",course:"CHOSEN PROGRAMME",career:"DREAM CAREER",current:"CURRENT CGPA",target:"TARGET CGPA",action:"WHAT SHOULD I DO?",download:"Download Vision Board"};
  const trackDownload=()=>{
   fetch("/api/stats",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({key:"vision_downloads"})}).then(r=>r.ok?r.json():null).then(d=>{if(d)setDownloadCount(d.vision_downloads||0)}).catch(()=>{});
  };
  const download=()=>{
   const canvas=document.createElement("canvas");canvas.width=1200;canvas.height=1500;const ctx=canvas.getContext("2d")!;
-  const vals:PosterValues={name,career,current,target,muet};
+  const vals:PosterValues={name,career,current,target,muet,next};
   const finish=()=>{
    paintPoster(ctx,u,vals);
    const a=document.createElement("a");a.download=`Vision-Board-${name||"KTESA"}.png`;a.href=canvas.toDataURL("image/png");a.click();trackDownload();
@@ -133,7 +137,7 @@ export default function VisionPage(){
    <label>{lang==="bm"?"Universiti pilihan":"University of choice"}<select value={uni} onChange={e=>setUni(e.target.value as UniKey)}>{Object.entries(universities).map(([k,v])=><option key={k} value={k}>{v.name} ({k})</option>)}</select></label>
    <label>{lang==="bm"?"Kursus pilihan":"Chosen programme"}<input value={course} onChange={e=>setCourse(e.target.value)}/></label><label>{lang==="bm"?"Kerjaya impian":"Dream career"}<input value={career} onChange={e=>setCareer(e.target.value)}/></label>
    <div className="vision-fields"><label>{lang==="bm"?"PNGK semasa":"Current CGPA"}<input value={current} onChange={e=>setCurrent(e.target.value)}/></label><label>{lang==="bm"?"Sasaran PNGK":"Target CGPA"}<input value={target} onChange={e=>setTarget(e.target.value)}/></label><label>MUET<input value={muet} onChange={e=>setMuet(e.target.value)}/></label></div>
-   <button onClick={download}><Download/> {t.download}</button>
+   <label>{t.action}<textarea value={next} onChange={e=>setNext(e.target.value)} rows={3}/></label><button onClick={download}><Download/> {t.download}</button>
    <p style={{fontSize:12,opacity:.7,marginTop:8}}>{lang==="bm"?`${downloadCount.toLocaleString("ms-MY")} Vision Board telah dimuat turun setakat ini.`:`${downloadCount.toLocaleString("ms-MY")} Vision Boards downloaded so far.`}</p>
   </section>
   <section className="vision-preview-wrap"><h2><Eye/> {lang==="bm"?"Vision Board Saya":"My Vision Board"}</h2>
