@@ -79,7 +79,6 @@ function paintPoster(ctx:CanvasRenderingContext2D,u:University,v:PosterValues){
 }
 
 export default function VisionPage(){
- const [lang,setLang]=useState<"bm"|"en">("bm");
  const [name,setName]=useState("Alya"); const [uni,setUni]=useState<UniKey>("UM");
  const [course,setCourse]=useState("Sarjana Muda Undang-undang"); const [career,setCareer]=useState("Peguam");
  const [current,setCurrent]=useState("3.25"); const [target,setTarget]=useState("3.50"); const [muet,setMuet]=useState("Band 4.0");
@@ -111,7 +110,6 @@ export default function VisionPage(){
    img.src=u.bg;
   }
  },[uni,name,career,current,target,muet,next,u]);
- const t=lang==="bm"?{tag:"Lebih daripada sebuah ijazah",subtag:"Satu sumbangan untuk masyarakat",university:"UNIVERSITI PILIHAN",course:"KURSUS PILIHAN",career:"KERJAYA IMPIAN",current:"PNGK SEMASA",target:"SASARAN PNGK",action:"APA PERLU SAYA BUAT?",download:"Muat turun Vision Board"}:{tag:"More than a degree",subtag:"A contribution to society",university:"UNIVERSITY OF CHOICE",course:"CHOSEN PROGRAMME",career:"DREAM CAREER",current:"CURRENT CGPA",target:"TARGET CGPA",action:"WHAT SHOULD I DO?",download:"Download Vision Board"};
  const trackDownload=()=>{
   fetch("/api/stats",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({key:"vision_downloads"})}).then(r=>r.ok?r.json():null).then(d=>{if(d)setDownloadCount(d.vision_downloads||0)}).catch(()=>{});
  };
@@ -130,18 +128,17 @@ export default function VisionPage(){
   img.src=u.bg;
  };
  return <main className="vision-page"><div className="vision-shell"><Link className="back-link" href="/"><ArrowLeft/> Kembali ke portal</Link>
-  <header className="vision-head"><span><Sparkles/></span><div><small>VISION DASHBOARD</small><h1>{t.tag}</h1><p>{lang==="bm"?"Isi sasaran anda dan jana Vision Board peribadi untuk disimpan dalam telefon.":"Set your goals and create a personal Vision Board to save on your phone."}</p></div></header>
-  <div className="vision-layout"><section className="vision-form"><h2><Target/> {lang==="bm"?"Bina visi anda":"Create your vision"}</h2>
-   <label>Bahasa Vision Board<select value={lang} onChange={e=>setLang(e.target.value as "bm"|"en")}><option value="bm">Bahasa Melayu</option><option value="en">English</option></select></label>
-   <label>{lang==="bm"?"Nama untuk dipaparkan":"Display name"} <small>{lang==="bm"?"Boleh guna nama penuh atau nama panggilan":"Use your full name or nickname"}</small><input value={name} onChange={e=>setName(e.target.value)} maxLength={30}/></label>
-   <label>{lang==="bm"?"Universiti pilihan":"University of choice"}<select value={uni} onChange={e=>setUni(e.target.value as UniKey)}>{Object.entries(universities).map(([k,v])=><option key={k} value={k}>{v.name} ({k})</option>)}</select></label>
-   <label>{lang==="bm"?"Kursus pilihan":"Chosen programme"}<input value={course} onChange={e=>setCourse(e.target.value)}/></label><label>{lang==="bm"?"Kerjaya impian":"Dream career"}<input value={career} onChange={e=>setCareer(e.target.value)}/></label>
-   <div className="vision-fields"><label>{lang==="bm"?"PNGK semasa":"Current CGPA"}<input value={current} onChange={e=>setCurrent(e.target.value)}/></label><label>{lang==="bm"?"Sasaran PNGK":"Target CGPA"}<input value={target} onChange={e=>setTarget(e.target.value)}/></label><label>MUET<input value={muet} onChange={e=>setMuet(e.target.value)}/></label></div>
-   <label>{t.action}<textarea value={next} onChange={e=>setNext(e.target.value)} rows={3}/></label><button onClick={download}><Download/> {t.download}</button>
-   <p style={{fontSize:12,opacity:.7,marginTop:8}}>{lang==="bm"?`${downloadCount.toLocaleString("ms-MY")} Vision Board telah dimuat turun setakat ini.`:`${downloadCount.toLocaleString("ms-MY")} Vision Boards downloaded so far.`}</p>
+  <header className="vision-head"><span><Sparkles/></span><div><small>VISION DASHBOARD</small><h1>Lebih daripada sebuah ijazah</h1><p>Isi sasaran anda dan jana Vision Board peribadi untuk disimpan dalam telefon.</p></div></header>
+  <div className="vision-layout"><section className="vision-form"><h2><Target/> Bina visi anda</h2>
+   <label>Nama untuk dipaparkan <small>Boleh guna nama penuh atau nama panggilan</small><input value={name} onChange={e=>setName(e.target.value)} maxLength={30}/></label>
+   <label>Universiti pilihan<select value={uni} onChange={e=>setUni(e.target.value as UniKey)}>{Object.entries(universities).map(([k,v])=><option key={k} value={k}>{v.name} ({k})</option>)}</select></label>
+   <label>Kursus pilihan<input value={course} onChange={e=>setCourse(e.target.value)}/></label><label>Kerjaya impian<input value={career} onChange={e=>setCareer(e.target.value)}/></label>
+   <div className="vision-fields"><label>PNGK semasa<input value={current} onChange={e=>setCurrent(e.target.value)}/></label><label>Sasaran PNGK<input value={target} onChange={e=>setTarget(e.target.value)}/></label><label>MUET<input value={muet} onChange={e=>setMuet(e.target.value)}/></label></div>
+   <label>APA PERLU SAYA BUAT?<textarea value={next} onChange={e=>setNext(e.target.value)} rows={3}/></label><button onClick={download}><Download/> Muat turun Vision Board</button>
+   <p style={{fontSize:12,opacity:.7,marginTop:8}}>{downloadCount.toLocaleString("ms-MY")} Vision Board telah dimuat turun setakat ini.</p>
   </section>
-  <section className="vision-preview-wrap"><h2><Eye/> {lang==="bm"?"Vision Board Saya":"My Vision Board"}</h2>
+  <section className="vision-preview-wrap"><h2><Eye/> Vision Board Saya</h2>
    <canvas ref={previewRef} width={1200} height={1500} className="vision-poster" style={{"--poster-deep":u.deep,"--poster-accent":u.accent,padding:0,width:"100%",display:"block"} as React.CSSProperties}/>
-   <p style={{fontSize:12,opacity:.65,marginTop:10,textAlign:"center"}}>{lang==="bm"?"Pratonton ini sama seperti fail yang akan dimuat turun.":"This preview matches the file you'll download."}</p>
+   <p style={{fontSize:12,opacity:.65,marginTop:10,textAlign:"center"}}>Pratonton ini sama seperti fail yang akan dimuat turun.</p>
   </section></div></div></main>
 }
