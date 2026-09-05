@@ -21,3 +21,8 @@ export const messages = sqliteTable("messages", {
   body: text("body").notNull(),
   createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
 });
+
+export const siteStats = sqliteTable("site_stats", {
+  key: text("key").primaryKey(),
+  count: integer("count").notNull().default(0),
+});
