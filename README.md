@@ -20,59 +20,62 @@ Scripts that need writable project-scoped home, npm, XDG, and temporary paths us
 ## Included Shape
 
 - edit site code under `app/`
-- `app/chatgpt-auth.ts` provides optional dispatch-owned ChatGPT sign-in helpers
-- `.openai/hosting.json` declares optional Sites D1 and R2 bindings
+- `app/access-auth.ts` verifies Cloudflare Access identity (JWT) for protected routes — see "Deploying outside ChatGPT Sites" below
+- `.openai/hosting.json` declares optional Sites D1 and R2 bindings (only relevant if this project is still previewed inside ChatGPT Sites)
 - `vite.config.ts` simulates declared bindings for local development
 - `db/index.ts` reads the D1 binding from the Cloudflare Worker environment
 - `db/schema.ts` starts intentionally empty
 - `examples/d1/` contains an optional D1 example surface
 - `drizzle.config.ts` supports local migration generation when needed
 
-## Workspace Auth Headers
+## Deploying outside ChatGPT Sites
 
-OpenAI workspace sites can read the current user's email from `oai-authenticated-user-email`.
+This project no longer depends on ChatGPT Sites hosting. It deploys as a plain Cloudflare Worker (via the `@cloudflare/vite-plugin` already wired up in `vite.config.ts`), with `/kaunselor` protected by **Cloudflare Access** instead of "Sign in with ChatGPT".
 
-SIWC-authenticated workspace sites may also receive `oai-authenticated-user-full-name` when the user's SIWC profile has a non-empty `name` claim. The full-name value is percent-encoded UTF-8 and is accompanied by `oai-authenticated-user-full-name-encoding: percent-encoded-utf-8`.
+### 1. Create a real D1 database
 
-Treat the full name as optional and fall back to email when it is absent:
-
-```tsx
-import { headers } from "next/headers";
-
-export default async function Home() {
-  const requestHeaders = await headers();
-  const email = requestHeaders.get("oai-authenticated-user-email");
-  const encodedFullName = requestHeaders.get("oai-authenticated-user-full-name");
-  const fullName =
-    encodedFullName &&
-    requestHeaders.get("oai-authenticated-user-full-name-encoding") ===
-      "percent-encoded-utf-8"
-      ? decodeURIComponent(encodedFullName)
-      : null;
-
-  const displayName = fullName ?? email;
-  // ...
-}
+```sh
+npx wrangler d1 create site-creator-d1
 ```
 
-## Optional Dispatch-Owned ChatGPT Sign-In
+Copy the `database_id` it prints, and put it in `vite.config.ts` in place of `SITE_CREATOR_PLACEHOLDER_DATABASE_ID`.
 
-Import the ready-to-use helpers from `app/chatgpt-auth.ts` when the site needs optional or required ChatGPT sign-in:
+Then apply the schema:
 
-- Use `getChatGPTUser()` for optional signed-in UI.
-- Use `requireChatGPTUser(returnTo)` for server-rendered pages that should send anonymous visitors through Sign in with ChatGPT.
-- In a Server Component, start sign-in with `<a href={chatGPTSignInPath(returnTo)} target="_top">`. The auth helper module is server-only; do not import it into a Client Component.
-- Do not use `fetch`, XHR, a client-side router, or a framework link that can prefetch the sign-in route. SIWC must start as a top-level navigation.
-- Never request the AuthAPI authorization endpoint directly. The dispatch-owned `/signin-with-chatgpt` route must start the SIWC flow.
-- Use `chatGPTSignOutPath(returnTo)` for browser sign-out links or actions.
-- Pass a same-origin relative `returnTo` path for the destination after sign-in or sign-out. The helper validates and safely encodes it.
-- Mark protected pages with `export const dynamic = "force-dynamic"` because they depend on per-request identity headers.
+```sh
+npm run db:generate
+npx wrangler d1 migrations apply site-creator-d1 --remote
+```
 
-Dispatch owns `/signin-with-chatgpt`, `/signout-with-chatgpt`, `/callback`, the OAuth cookies, and identity header injection. Do not implement app routes for those reserved paths. Routes that do not import and call the helper remain anonymous-compatible.
+### 2. Set up Cloudflare Access in front of /kaunselor
 
-SIWC establishes identity only; it does not prove workspace membership. Use the Sites hosting platform's access policy controls for workspace-wide restrictions, or enforce explicit server-side membership or allowlist checks.
+In the Cloudflare Zero Trust dashboard: Access → Applications → Add an application → Self-hosted.
 
-Use SIWC for account pages, user-specific dashboards, saved records, and write actions tied to the current ChatGPT user. Leave public content anonymous.
+- Path: your domain + `/kaunselor*`
+- Policy: allow only the specific counselor/admin emails (or your school's Google Workspace domain)
+- After saving, copy the application's **Audience (AUD) tag** and your **team domain** (`<team-name>.cloudflareaccess.com`)
+
+### 3. Set Worker environment variables
+
+In the Cloudflare dashboard (Workers & Pages → your Worker → Settings → Variables), or in `vite.config.ts`'s `localBindingConfig.vars` for local testing, set:
+
+- `CF_ACCESS_TEAM_DOMAIN` — e.g. `yourteam.cloudflareaccess.com`
+- `CF_ACCESS_AUD` — the Audience tag from step 2
+- `KAUNSELOR_ROLES` — comma-separated `email:role` pairs, e.g.
+  `admin@example.com:admin,counselor@example.com:kaunselor`
+
+These replace the emails that used to be hardcoded in `app/api/kaunselor/route.ts`, so they are never committed to this (public) repository.
+
+### 4. Deploy
+
+```sh
+npm run build
+npx wrangler deploy
+```
+
+### 5. Connect GitHub for auto-deploy (optional)
+
+In Cloudflare dashboard → Workers & Pages → Create → connect this GitHub repository, so every push to `main` triggers `npm run build && npx wrangler deploy` automatically. GitHub itself only stores the code — Cloudflare is what runs it.
 
 ## Diagnostic Commands
 
