@@ -107,6 +107,54 @@ const careers = {
     target:"Sasarkan PNGK 3.00 ke atas dan MUET yang baik untuk pilihan lebih luas.",
     official:"Nama program mungkin berbeza antara universiti walaupun membawa kepada bidang kerja yang hampir sama.",
     source:"https://online.mohe.gov.my/epanduan/"
+  },
+  sukan: {
+    name:"Sukan, Kecergasan & Kejurulatihan", course:"Sains Sukan / Pendidikan Jasmani / Kejurulatihan / Pengurusan Sukan", stream:"Sesuai untuk pelajar Sains Sukan dan turut terbuka kepada kombinasi lain mengikut program.",
+    spm:["Bahasa Melayu dan Sejarah perlu memenuhi syarat am.","Sains, Matematik dan Pendidikan Jasmani membantu bagi program berasaskan prestasi manusia.","Sesetengah program menetapkan ujian kecergasan, pemeriksaan kesihatan atau temu duga."],
+    stpm:["Sains Sukan","Biology atau subjek Sains bagi program tertentu","Pengajian Am dan subjek yang diterima program"],
+    target:"Sasarkan PNGK 3.00 ke atas, keputusan baik dalam Sains Sukan dan tahap kecergasan yang konsisten jika program menetapkan ujian fizikal.",
+    official:"Bezakan Sains Sukan, Pendidikan Jasmani, Kejurulatihan dan Pengurusan Sukan kerana fokus serta syarat kemasukannya tidak sama.",
+    source:"https://fssk.upsi.edu.my/?lang=ms&page_id=272"
+  },
+  islam: {
+    name:"Pengajian Islam, Syariah & Industri Halal", course:"Syariah / Fiqh dan Fatwa / Usuluddin / Dakwah / Muamalat / Industri Halal", stream:"Sangat sesuai untuk pakej yang mempunyai Syariah; sesetengah program menerima aliran Sains Sosial lain.",
+    spm:["Bahasa Melayu dan Sejarah perlu memenuhi syarat am.","Bahasa Arab dan Pendidikan Islam boleh menjadi syarat khas bagi program tertentu.","Matematik membantu bagi Muamalat, Kewangan Islam dan pengurusan halal."],
+    stpm:["Syariah","Bahasa Melayu atau Sejarah","Ekonomi atau Pengajian Perniagaan bagi laluan muamalat"],
+    target:"Sasarkan PNGK 3.00 ke atas serta kukuhkan Bahasa Arab, penulisan dan kemahiran memahami teks mengikut program pilihan.",
+    official:"Semak syarat Bahasa Arab, temu duga dan kombinasi mata pelajaran bagi setiap program Syariah atau Pengajian Islam.",
+    source:"https://admission.usim.edu.my/program-details/?pid=20"
+  },
+  bahasa: {
+    name:"Bahasa, Komunikasi & Media", course:"Bahasa Melayu / Linguistik / Komunikasi / Kewartawanan / Perhubungan Awam / Media Baharu", stream:"Terbuka kepada aliran Sains atau Sains Sosial mengikut program.",
+    spm:["Bahasa Melayu dan Bahasa Inggeris sangat penting.","Sejarah, Kesusasteraan dan Seni Visual membantu untuk penulisan, budaya dan komunikasi visual.","Program tertentu mungkin memerlukan temu duga, ujian atau portfolio."],
+    stpm:["Bahasa Melayu","Sejarah, Ekonomi atau Pengajian Perniagaan","MUET yang kukuh untuk bidang komunikasi profesional"],
+    target:"Sasarkan PNGK 3.00 ke atas, MUET yang baik dan bina hasil penulisan atau media yang menunjukkan kemahiran sebenar.",
+    official:"Pilih pengkhususan sebenar seperti linguistik, kewartawanan, penyiaran, perhubungan awam atau komunikasi digital sebelum membandingkan syarat.",
+    source:"https://masscomm.uitm.edu.my/"
+  },
+  bina: {
+    name:"Alam Bina, Seni Bina & Ukur", course:"Seni Bina / Ukur Bahan / Perancangan Bandar / Seni Bina Landskap / Geomatik / Hartanah", stream:"Program berbeza menerima aliran Sains, Teknikal atau Sains Sosial mengikut syarat khas.",
+    spm:["Matematik lazimnya diberi perhatian; Matematik Tambahan dan Fizik membantu bagi program teknikal.","Seni Visual membantu untuk seni bina dan reka bentuk tetapi tidak menggantikan syarat akademik.","Portfolio, ujian lukisan atau temu duga mungkin diperlukan oleh program tertentu."],
+    stpm:["Mathematics atau subjek yang diterima program","Physics bagi laluan teknikal tertentu","Seni Visual, Ekonomi atau Sejarah bagi laluan yang menerimanya"],
+    target:"Sasarkan PNGK 3.00 ke atas dan semak awal sama ada program memerlukan portfolio, temu duga atau subjek Matematik tertentu.",
+    official:"Seni Bina, Ukur Bahan, Perancangan Bandar dan Geomatik ialah program berbeza dengan kelayakan profesional serta syarat tersendiri.",
+    source:"https://builtsurvey.utm.my/academic/undergraduate/quantity-surveying/"
+  },
+  hospitaliti: {
+    name:"Hospitaliti, Pelancongan & Acara", course:"Pengurusan Hotel / Pelancongan / Seni Kulinari / Pengurusan Acara / Perkhidmatan Makanan", stream:"Terbuka kepada pelbagai aliran bergantung pada universiti dan program.",
+    spm:["Bahasa Melayu dan Sejarah perlu memenuhi syarat am.","Bahasa Inggeris, Matematik dan kemahiran komunikasi membantu dalam industri perkhidmatan.","Sesetengah program kulinari atau hospitaliti mempunyai latihan praktikal dan syarat kesihatan tertentu."],
+    stpm:["Pengajian Perniagaan","Ekonomi, Bahasa Melayu atau Sejarah","MUET untuk komunikasi pelanggan dan industri"],
+    target:"Sasarkan PNGK 3.00 ke atas serta bina pengalaman dalam komunikasi, organisasi acara dan kerja berpasukan.",
+    official:"Semak sama ada program berfokus pengurusan hotel, pelancongan, acara, kulinari atau perkhidmatan makanan.",
+    source:"https://fhtm.uitm.edu.my/"
+  },
+  logistik: {
+    name:"Logistik, Pengangkutan & Rantaian Bekalan", course:"Logistik / Pengangkutan / Rantaian Bekalan / Operasi / Maritim / Pengurusan Pelabuhan", stream:"Terbuka kepada aliran Sains atau Sains Sosial mengikut program.",
+    spm:["Matematik penting untuk analisis operasi, kos dan inventori.","Bahasa Inggeris membantu kerana bidang ini melibatkan perdagangan dan dokumentasi antarabangsa.","Geografi, Ekonomi dan Pengajian Perniagaan memberi asas yang berguna."],
+    stpm:["Ekonomi","Pengajian Perniagaan","Mathematics, Geografi atau subjek yang diterima program"],
+    target:"Sasarkan PNGK 3.00 ke atas dan kukuhkan kemahiran Matematik, data, komunikasi serta penyelesaian masalah.",
+    official:"Bezakan program pengurusan logistik daripada kejuruteraan pengangkutan atau bidang maritim yang mungkin memerlukan aliran Sains.",
+    source:"https://www.uum.edu.my/admissions/application-guidelines/undergraduate-local"
   }
 } as const;
 
@@ -300,6 +348,56 @@ const careerBranches:Record<CareerKey,Branch[]>={
   {name:"Geografi & GIS",study:"Ruang, bandar, penduduk, pemetaan dan data geospatial",careers:"Penganalisis GIS, perancang, pegawai geospatial"},
   {name:"Dasar Teknologi & AI",study:"Tadbir urus data, etika AI, inovasi dan regulasi",careers:"Penganalisis dasar teknologi, pegawai tadbir urus AI"},
   {name:"Komunikasi Strategik",study:"Media, pihak berkepentingan, krisis dan komunikasi awam",careers:"Pegawai komunikasi korporat, pegawai perhubungan awam"}
+ ],
+ sukan:[
+  {name:"Sains Sukan",study:"Fisiologi senaman, biomekanik, psikologi, prestasi dan penyelidikan",careers:"Pegawai sains sukan, pegawai kecergasan, pembantu penyelidik"},
+  {name:"Pendidikan Jasmani",study:"Pedagogi, pergerakan, kurikulum dan penilaian pendidikan jasmani",careers:"Guru Pendidikan Jasmani selepas memenuhi syarat ikhtisas"},
+  {name:"Sains Kejurulatihan",study:"Perancangan latihan, prestasi, analisis teknik dan pembangunan atlet",careers:"Jurulatih, pegawai pembangunan sukan, penganalisis prestasi"},
+  {name:"Pengurusan Sukan",study:"Organisasi, pemasaran, kewangan, acara dan kemudahan sukan",careers:"Pengurus sukan, pegawai acara, pegawai pemasaran sukan"},
+  {name:"Rekreasi & Kecergasan",study:"Aktiviti rekreasi, kecergasan komuniti, keselamatan dan pengurusan program",careers:"Pegawai rekreasi, pengurus program kecergasan, fasilitator komuniti"},
+  {name:"Psikologi Sukan",study:"Motivasi, tumpuan, prestasi mental dan tingkah laku atlet",careers:"Pegawai pembangunan atlet; laluan pakar memerlukan pengajian dan kelayakan lanjut"}
+ ],
+ islam:[
+  {name:"Syariah",study:"Fiqh, usul fiqh, undang-undang keluarga, muamalat dan kehakiman",careers:"Pegawai syariah, pegawai hal ehwal Islam, penyelidik"},
+  {name:"Fiqh & Fatwa",study:"Kaedah hukum, fatwa, maqasid syariah dan isu semasa",careers:"Pegawai penyelidik syariah, pegawai fatwa, pegawai agama"},
+  {name:"Usuluddin",study:"Akidah, pemikiran Islam, al-Quran, hadis dan perbandingan agama",careers:"Pegawai hal ehwal Islam, penyelidik, pendidik selepas kelayakan berkaitan"},
+  {name:"Dakwah & Pengurusan Islam",study:"Komunikasi dakwah, masyarakat, organisasi dan pembangunan komuniti",careers:"Pegawai dakwah, pegawai pembangunan komuniti, pentadbir institusi"},
+  {name:"Muamalat & Kewangan Islam",study:"Kontrak, perbankan, takaful, pasaran dan pematuhan syariah",careers:"Pegawai bank Islam, pegawai pematuhan syariah, penasihat syariah selepas kelayakan lanjut"},
+  {name:"Industri Halal",study:"Syariah, sains asas, audit, pensijilan dan pengurusan rantaian halal",careers:"Eksekutif halal, pegawai audit halal, pegawai pematuhan"}
+ ],
+ bahasa:[
+  {name:"Bahasa Melayu & Linguistik",study:"Tatabahasa, sosiolinguistik, wacana, budaya dan penyelidikan bahasa",careers:"Pegawai bahasa, editor, penyelidik, penulis"},
+  {name:"Komunikasi Massa",study:"Teori media, penulisan, produksi, khalayak dan etika",careers:"Pegawai media, penerbit, penulis kandungan"},
+  {name:"Kewartawanan",study:"Pelaporan, penyuntingan, penyelidikan, multimedia dan etika berita",careers:"Wartawan, penyunting, penerbit berita"},
+  {name:"Perhubungan Awam",study:"Reputasi, kempen, komunikasi krisis dan pihak berkepentingan",careers:"Pegawai perhubungan awam, pegawai komunikasi korporat"},
+  {name:"Penyiaran & Produksi",study:"Video, audio, skrip, pengarahan dan produksi studio",careers:"Penerbit, penulis skrip, kru produksi, penyunting video"},
+  {name:"Media Baharu",study:"Kandungan digital, platform, analitik, interaktif dan strategi media",careers:"Penerbit kandungan digital, pegawai media sosial, penganalisis media"},
+  {name:"Terjemahan",study:"Bahasa, makna, budaya, penyuntingan dan teknologi terjemahan",careers:"Penterjemah, editor bahasa, penyetempat kandungan"}
+ ],
+ bina:[
+  {name:"Seni Bina",study:"Reka bentuk bangunan, studio, teknologi binaan, sejarah dan alam sekitar",careers:"Pembantu arkitek; gelaran profesional memerlukan laluan kelayakan lanjut"},
+  {name:"Ukur Bahan",study:"Kos, kontrak, tender, bahan dan pengurusan pembinaan",careers:"Juruukur bahan, eksekutif kontrak, perunding kos"},
+  {name:"Perancangan Bandar & Wilayah",study:"Guna tanah, pengangkutan, komuniti, GIS dan pembangunan bandar",careers:"Perancang bandar, pegawai pembangunan, penganalisis perancangan"},
+  {name:"Seni Bina Landskap",study:"Reka bentuk ruang luar, tumbuhan, ekologi dan perancangan tapak",careers:"Pereka landskap, pegawai landskap, perunding reka bentuk"},
+  {name:"Geomatik & Geoinformatik",study:"Ukur, pemetaan, GIS, dron, satelit dan data spatial",careers:"Juruukur geomatik, penganalisis GIS, pegawai geospatial"},
+  {name:"Hartanah",study:"Penilaian, pasaran, undang-undang, pelaburan dan pengurusan aset",careers:"Penilai harta, eksekutif hartanah, pengurus fasiliti"},
+  {name:"Pengurusan Pembinaan",study:"Projek, kos, masa, keselamatan, teknologi dan operasi tapak",careers:"Eksekutif projek, pengurus pembinaan, pegawai perancangan projek"}
+ ],
+ hospitaliti:[
+  {name:"Pengurusan Hotel",study:"Operasi penginapan, khidmat pelanggan, hasil dan pengurusan organisasi",careers:"Eksekutif hotel, pegawai operasi, pengurus perkhidmatan"},
+  {name:"Pengurusan Pelancongan",study:"Destinasi, pemasaran, pelancong, produk dan pembangunan komuniti",careers:"Pegawai pelancongan, perancang produk, eksekutif destinasi"},
+  {name:"Pengurusan Acara",study:"Perancangan, bajet, pemasaran, operasi dan pengurusan risiko acara",careers:"Eksekutif acara, penyelaras persidangan, pegawai protokol"},
+  {name:"Seni Kulinari",study:"Teknik masakan, keselamatan makanan, menu, operasi dan kreativiti",careers:"Chef, penyelia dapur, usahawan makanan"},
+  {name:"Perkhidmatan Makanan",study:"Operasi restoran, pemakanan asas, kualiti, kos dan keusahawanan",careers:"Pengurus perkhidmatan makanan, pegawai operasi, usahawan"},
+  {name:"Pelancongan Digital",study:"Platform tempahan, kandungan, data pelanggan dan pemasaran destinasi",careers:"Eksekutif pemasaran pelancongan, pengurus kandungan, penganalisis pelanggan"}
+ ],
+ logistik:[
+  {name:"Logistik & Rantaian Bekalan",study:"Perolehan, inventori, gudang, pengangkutan dan perancangan permintaan",careers:"Pegawai logistik, penganalisis rantaian bekalan, perancang inventori"},
+  {name:"Pengangkutan",study:"Sistem jalan, rel, udara, operasi, dasar dan perancangan mobiliti",careers:"Pegawai pengangkutan, perancang operasi, penganalisis mobiliti"},
+  {name:"Maritim & Pelabuhan",study:"Perkapalan, terminal, dokumentasi, operasi pelabuhan dan perdagangan",careers:"Eksekutif perkapalan, pegawai pelabuhan, pegawai operasi marin"},
+  {name:"Perolehan",study:"Sumber pembekal, kontrak, kos, kualiti dan pengurusan vendor",careers:"Pegawai perolehan, eksekutif pembelian, penganalisis vendor"},
+  {name:"Operasi & Kualiti",study:"Proses, produktiviti, kawalan kualiti, data dan penambahbaikan",careers:"Eksekutif operasi, pegawai kualiti, penganalisis proses"},
+  {name:"Perdagangan Antarabangsa",study:"Import eksport, kastam, dokumentasi, pasaran dan pematuhan",careers:"Eksekutif eksport, pegawai perdagangan, pegawai dokumentasi"}
  ]
 };
 const comparisons:Record<CareerKey,Requirement[]>={
@@ -384,6 +482,33 @@ const comparisons:Record<CareerKey,Requirement[]>={
   {uni:"Universiti Utara Malaysia (UUM)",program:"Pengurusan Awam dan Hal Ehwal Antarabangsa",pngk:null,spm:"Bahasa/Matematik mengikut program",stpm:"Syarat khas program",muet:"Tiada makluman rasmi",extra:"Bandingkan program pentadbiran dan antarabangsa",source:"https://www.uum.edu.my/admissions/application-guidelines/undergraduate-local"},
   {uni:"Universiti Teknologi MARA (UiTM)",program:"Pentadbiran, Polisi dan Komunikasi",pngk:null,spm:"Syarat khas program",stpm:"Kombinasi subjek diterima",muet:"Tiada makluman rasmi",extra:"Tertakluk syarat kelayakan UiTM",source:"https://online.mohe.gov.my/epanduan/"},
   {uni:"Universiti Malaysia Sabah (UMS)",program:"Hubungan Antarabangsa dan Sains Sosial",pngk:null,spm:"Syarat am dan khas",stpm:"Subjek diterima mengikut program",muet:"Tiada makluman rasmi",extra:"Tiada makluman rasmi",source:"https://online.mohe.gov.my/epanduan/"}
+ ],
+ sukan:[
+  {uni:"Universiti Pendidikan Sultan Idris (UPSI)",program:"Pendidikan Jasmani / Pendidikan Sains Sukan / Pendidikan Sains Kejurulatihan",pngk:null,spm:"Syarat am serta syarat khas program",stpm:"Kombinasi subjek dan gred mengikut program",muet:"Tiada makluman rasmi",extra:"Program tertentu boleh melibatkan MEdSI, temu duga atau ujian kecergasan",source:"https://fssk.upsi.edu.my/?lang=ms&page_id=272"},
+  {uni:"Universiti Teknologi MARA (UiTM)",program:"Program Sains Sukan dan Rekreasi",pngk:null,spm:"Syarat am dan khas mengikut program",stpm:"Syarat khas program perlu dipenuhi",muet:"Tiada makluman rasmi",extra:"Tertakluk syarat kelayakan UiTM",source:"https://online.mohe.gov.my/epanduan/"}
+ ],
+ islam:[
+  {uni:"Universiti Sains Islam Malaysia (USIM)",program:"Sarjana Muda Fiqh dan Fatwa dengan Kepujian",pngk:null,spm:"Syarat Bahasa Arab dan syarat am perlu disemak",stpm:"Syarat khas program Pengajian Islam",muet:"Tiada makluman rasmi",extra:"Program sepenuh masa 4 tahun; semak syarat sesi semasa",source:"https://admission.usim.edu.my/program-details/?pid=20"},
+  {uni:"Universiti Sains Islam Malaysia (USIM)",program:"Syariah dan Undang-undang / Syariah Industri Halal",pngk:null,spm:"Bahasa Arab dan subjek berkaitan mengikut program",stpm:"Kombinasi subjek dan gred khas program",muet:"Tiada makluman rasmi",extra:"Nama program membawa kepada laluan kerjaya yang berbeza",source:"https://fsu.usim.edu.my/"},
+  {uni:"Universiti Malaya (UM)",program:"Program Akademi Pengajian Islam",pngk:null,spm:"Syarat am dan Bahasa Arab mengikut program",stpm:"Syarat khas program perlu dipenuhi",muet:"Tiada makluman rasmi",extra:"Bandingkan Syariah, Usuluddin dan bidang berkaitan",source:"https://study.um.edu.my/"}
+ ],
+ bahasa:[
+  {uni:"Universiti Teknologi MARA (UiTM)",program:"Sarjana Muda Komunikasi dengan Kepujian",pngk:null,spm:"Bahasa Melayu, Bahasa Inggeris dan syarat khas program",stpm:"Syarat khas mengikut pengkhususan komunikasi",muet:"Tiada makluman rasmi",extra:"Pilih pengkhususan seperti perhubungan awam, penyiaran atau media baharu",source:"https://masscomm.uitm.edu.my/"},
+  {uni:"Universiti Malaya (UM)",program:"Bahasa, Linguistik dan Komunikasi",pngk:null,spm:"Syarat bahasa mengikut program",stpm:"Kombinasi subjek diterima mengikut program",muet:"Tiada makluman rasmi",extra:"Semak nama dan pengkhususan program sebenar",source:"https://study.um.edu.my/"},
+  {uni:"Universiti Kebangsaan Malaysia (UKM)",program:"Bahasa, Linguistik dan Media",pngk:null,spm:"Syarat am dan khas program",stpm:"Subjek dan gred mengikut program",muet:"Tiada makluman rasmi",extra:"Rujuk kod program dalam e-Panduan",source:"https://www.ukm.my/portal/undergraduate-programmes/"}
+ ],
+ bina:[
+  {uni:"Universiti Teknologi Malaysia (UTM)",program:"Seni Bina / Ukur Bahan / Perancangan Bandar dan Wilayah / Seni Bina Landskap",pngk:null,spm:"Matematik serta syarat khas mengikut program",stpm:"Kombinasi subjek diterima mengikut program",muet:"Tiada makluman rasmi",extra:"Portfolio, ujian atau temu duga boleh dikenakan bagi program tertentu",source:"https://builtsurvey.utm.my/academic/undergraduate/quantity-surveying/"},
+  {uni:"Universiti Teknologi MARA (UiTM)",program:"Program Alam Bina, Ukur dan Hartanah",pngk:null,spm:"Syarat Matematik, Sains atau Seni mengikut program",stpm:"Syarat khas program perlu dipenuhi",muet:"Tiada makluman rasmi",extra:"Tertakluk syarat kelayakan UiTM",source:"https://online.mohe.gov.my/epanduan/"}
+ ],
+ hospitaliti:[
+  {uni:"Universiti Teknologi MARA (UiTM)",program:"Pengurusan Hospitaliti / Pengurusan Pelancongan / Perkhidmatan Makanan",pngk:null,spm:"Syarat am dan khas mengikut program",stpm:"Syarat khas program perlu dipenuhi",muet:"Tiada makluman rasmi",extra:"Program mempunyai komponen praktikal dan latihan industri",source:"https://fhtm.uitm.edu.my/"},
+  {uni:"Universiti Utara Malaysia (UUM)",program:"Program berkaitan Pelancongan, Hospitaliti dan Pengurusan Acara",pngk:null,spm:"Bahasa dan Matematik mengikut program",stpm:"Syarat khas program",muet:"Tiada makluman rasmi",extra:"Semak program sebenar dalam e-Panduan UPU",source:"https://www.uum.edu.my/admissions/application-guidelines/undergraduate-local"}
+ ],
+ logistik:[
+  {uni:"Universiti Utara Malaysia (UUM)",program:"Logistik, Pengangkutan dan Pengurusan Operasi",pngk:null,spm:"Matematik dan syarat am mengikut program",stpm:"Syarat khas program perlu dipenuhi",muet:"Tiada makluman rasmi",extra:"Bandingkan pengurusan logistik, operasi dan perniagaan antarabangsa",source:"https://www.uum.edu.my/admissions/application-guidelines/undergraduate-local"},
+  {uni:"Universiti Teknologi MARA (UiTM)",program:"Pengangkutan, Operasi dan Rantaian Bekalan",pngk:null,spm:"Matematik dan Bahasa Inggeris mengikut program",stpm:"Syarat khas program perlu dipenuhi",muet:"Tiada makluman rasmi",extra:"Tertakluk syarat kelayakan UiTM",source:"https://online.mohe.gov.my/epanduan/"},
+  {uni:"Universiti Malaysia Terengganu (UMT)",program:"Program berkaitan Maritim dan Operasi Pelabuhan",pngk:null,spm:"Syarat Matematik atau Sains mengikut program",stpm:"Kombinasi subjek mengikut program",muet:"Tiada makluman rasmi",extra:"Bezakan program pengurusan maritim daripada kejuruteraan marin",source:"https://online.mohe.gov.my/epanduan/"}
  ]
 };
 type EngineeringProgramKey="elektrik"|"mekanikal"|"awam"|"kimia"|"mekatronik"|"komputer"|"pembuatan"|"bahan"|"aeroangkasa"|"automotif"|"bioperubatan"|"alam_sekitar"|"petroleum"|"marin"|"telekomunikasi";
