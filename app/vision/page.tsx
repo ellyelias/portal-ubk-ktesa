@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import {useState} from "react";
+import {useEffect,useState} from "react";
 import {ArrowLeft,Download,Eye,GraduationCap,Sparkles,Target} from "lucide-react";
 
 type University={name:string;accent:string;deep:string;mark:string};
@@ -46,8 +46,20 @@ export default function VisionPage(){
  const [course,setCourse]=useState("Sarjana Muda Undang-undang"); const [career,setCareer]=useState("Peguam");
  const [current,setCurrent]=useState("3.25"); const [target,setTarget]=useState("3.50"); const [muet,setMuet]=useState("Band 4.0");
  const [focus,setFocus]=useState("Capai PNGK 3.50"); const [next,setNext]=useState("Tingkatkan latihan Matematik dan semak kemajuan setiap minggu");
+ const [downloadCount,setDownloadCount]=useState(0);
  const u=universities[uni];
+ useEffect(()=>{
+  (async()=>{
+   try{
+    const r=await fetch("/api/stats");
+    if(r.ok){const d=await r.json();setDownloadCount(d.vision_downloads||0)}
+   }catch{}
+  })();
+ },[]);
  const t=lang==="bm"?{tag:"Lebih daripada sebuah ijazah",subtag:"Satu sumbangan untuk masyarakat",university:"UNIVERSITI PILIHAN",course:"KURSUS PILIHAN",career:"KERJAYA IMPIAN",current:"PNGK SEMASA",target:"SASARAN PNGK",focus:"FOKUS UTAMA SAYA",action:"APA PERLU SAYA BUAT?",download:"Muat turun Vision Board"}:{tag:"More than a degree",subtag:"A contribution to society",university:"UNIVERSITY OF CHOICE",course:"CHOSEN PROGRAMME",career:"DREAM CAREER",current:"CURRENT CGPA",target:"TARGET CGPA",focus:"MY MAIN FOCUS",action:"WHAT SHOULD I DO?",download:"Download Vision Board"};
+ const trackDownload=()=>{
+  fetch("/api/stats",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({key:"vision_downloads"})}).then(r=>r.ok?r.json():null).then(d=>{if(d)setDownloadCount(d.vision_downloads||0)}).catch(()=>{});
+ };
  const download=()=>{const canvas=document.createElement("canvas");canvas.width=1200;canvas.height=1500;const ctx=canvas.getContext("2d")!;const render=()=>{
   const img=new Image();img.onload=()=>{drawCover(ctx,img,1200,1500);finish()};img.onerror=()=>{ctx.fillStyle=u.deep;ctx.fillRect(0,0,1200,1500);finish()};img.src="/vision-um.png";
   function finish(){ctx.fillStyle=u.deep+"de";ctx.fillRect(0,0,1200,1500);ctx.strokeStyle=u.accent;ctx.lineWidth=3;ctx.strokeRect(54,54,1092,1392);
@@ -56,7 +68,7 @@ export default function VisionPage(){
   const cards=[[t.career,career],[t.current,current],[t.target,target],["MUET",muet]];cards.forEach(([a,b],i)=>{const x=85+i*258;ctx.fillStyle="#ffffff12";ctx.fillRect(x,650,235,190);ctx.fillStyle="#dbe5eb";ctx.font="700 17px Arial";ctx.fillText(a,x+117,705);ctx.fillStyle=u.accent;ctx.font="700 35px Georgia";wrap(ctx,b.toUpperCase(),x+117,770,205,38)});
   ctx.fillStyle="#ffffff12";ctx.fillRect(85,875,390,230);ctx.fillRect(505,875,610,230);ctx.fillStyle="#dbe5eb";ctx.font="700 19px Arial";ctx.fillText(t.focus,280,940);ctx.fillStyle=u.accent;ctx.font="700 28px Arial";wrap(ctx,focus.toUpperCase(),280,1010,330,36);ctx.fillStyle="#dbe5eb";ctx.font="700 19px Arial";ctx.fillText(t.action,810,940);ctx.fillStyle="#fff";ctx.font="700 28px Arial";wrap(ctx,next.toUpperCase(),810,1005,530,36);
   ctx.fillStyle=u.accent;ctx.font="italic 42px Georgia";ctx.fillText("Ini haluan saya. Ini sasaran saya.",600,1235);ctx.fillStyle="#fff";ctx.font="700 20px Arial";ctx.fillText("KTESA MENCIPTA KEJAYAAN",600,1375);
-  const a=document.createElement("a");a.download=`Vision-Board-${name||"KTESA"}.png`;a.href=canvas.toDataURL("image/png");a.click();}
+  const a=document.createElement("a");a.download=`Vision-Board-${name||"KTESA"}.png`;a.href=canvas.toDataURL("image/png");a.click();trackDownload();}
  };render()};
  return <main className="vision-page"><div className="vision-shell"><Link className="back-link" href="/"><ArrowLeft/> Kembali ke portal</Link>
   <header className="vision-head"><span><Sparkles/></span><div><small>VISION DASHBOARD</small><h1>{t.tag}</h1><p>{lang==="bm"?"Isi sasaran anda dan jana Vision Board peribadi untuk disimpan dalam telefon.":"Set your goals and create a personal Vision Board to save on your phone."}</p></div></header>
@@ -68,6 +80,7 @@ export default function VisionPage(){
    <div className="vision-fields"><label>{lang==="bm"?"PNGK semasa":"Current CGPA"}<input value={current} onChange={e=>setCurrent(e.target.value)}/></label><label>{lang==="bm"?"Sasaran PNGK":"Target CGPA"}<input value={target} onChange={e=>setTarget(e.target.value)}/></label><label>MUET<input value={muet} onChange={e=>setMuet(e.target.value)}/></label></div>
    <label>{t.focus}<input value={focus} onChange={e=>setFocus(e.target.value)}/></label>
    <label>{t.action}<textarea value={next} onChange={e=>setNext(e.target.value)} rows={3}/></label><button onClick={download}><Download/> {t.download}</button>
+   <p style={{fontSize:12,opacity:.7,marginTop:8}}>{lang==="bm"?`${downloadCount.toLocaleString("ms-MY")} Vision Board telah dimuat turun setakat ini.`:`${downloadCount.toLocaleString("ms-MY")} Vision Boards downloaded so far.`}</p>
   </section>
   <section className="vision-preview-wrap"><h2><Eye/> {lang==="bm"?"Vision Board Saya":"My Vision Board"}</h2><div className="vision-poster" style={{"--poster-deep":u.deep,"--poster-accent":u.accent,backgroundImage:`linear-gradient(${u.deep}c7,${u.deep}f5),url(/vision-um.png)`} as React.CSSProperties}>
    <div className="vision-title"><strong>VISION</strong><span>DASHBOARD {(name||"SAYA").toUpperCase()}</span><em>{t.tag}</em><small>{t.subtag}</small></div><div className="vision-uni"><span>{t.university}</span><strong>{u.name}</strong><b>{course}</b></div><div className="vision-mini-grid"><div><span>{t.career}</span><b>{career}</b></div><div><span>{t.current}</span><b>{current}</b></div><div><span>{t.target}</span><b>{target}</b></div><div><span>MUET</span><b>{muet}</b></div></div><div className="vision-status"><div><span>{t.focus}</span><p>{focus}</p></div><div><span>{t.action}</span><p>{next}</p></div></div><blockquote>{lang==="bm"?"Ini haluan saya. Ini sasaran saya.":"My path. My goal. My future."}</blockquote><footer>KTESA MENCIPTA KEJAYAAN</footer>
