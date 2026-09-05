@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import {useEffect,useState} from "react";
+import {useEffect,useRef,useState} from "react";
 import {ArrowLeft,Download,Eye,GraduationCap,Sparkles,Target} from "lucide-react";
 
 type University={name:string;accent:string;deep:string;mark:string;bg:string;yOff:number};
@@ -28,6 +28,8 @@ const universities:Record<string,University>={
 } as const;
 type UniKey=keyof typeof universities;
 
+type PosterValues={name:string;career:string;current:string;target:string;muet:string;focus:string;next:string};
+
 function wrap(ctx:CanvasRenderingContext2D,text:string,x:number,y:number,max:number,line=42){
  const words=text.split(" "); let row=""; let yy=y;
  for(const word of words){const test=row?`${row} ${word}`:word;if(ctx.measureText(test).width>max&&row){ctx.fillText(row,x,yy);row=word;yy+=line}else row=test}
@@ -51,6 +53,32 @@ function pillBg(ctx:CanvasRenderingContext2D,cx:number,cy:number,w:number,h:numb
  ctx.closePath();ctx.fill();
 }
 
+// Lukis nilai-nilai dinamik atas kotak kosong sedia ada dalam gambar poster.
+// Digunakan sama ada untuk pratonton skrin (canvas kecil) mahupun fail muat turun (canvas penuh 1200x1500).
+function paintPoster(ctx:CanvasRenderingContext2D,u:University,v:PosterValues){
+ ctx.textAlign="center";
+ const R1=1033+u.yOff, R2=1166+u.yOff;
+ // Kotak "Nama Saya"
+ pillBg(ctx,222,R1,300,58);
+ ctx.fillStyle="#fff";ctx.font="700 29px Georgia";wrap(ctx,(v.name||"SAYA").toUpperCase(),222,R1+10,270,32);
+ // Kotak "Kerjaya Impian"
+ pillBg(ctx,594,R1,300,58);
+ ctx.fillStyle="#fff";ctx.font="700 25px Arial";wrap(ctx,v.career.toUpperCase(),594,R1+10,270,28);
+ // Kotak "PNGK Semasa"
+ pillBg(ctx,972,R1,270,58);
+ ctx.fillStyle=u.accent;ctx.font="700 34px Georgia";ctx.fillText(v.current.toUpperCase(),972,R1+12);
+ // Kotak "Sasaran PNGK"
+ pillBg(ctx,222,R2,270,58);
+ ctx.fillStyle=u.accent;ctx.font="700 34px Georgia";ctx.fillText(v.target.toUpperCase(),222,R2+12);
+ // Kotak "MUET"
+ pillBg(ctx,594,R2,300,58);
+ ctx.fillStyle="#fff";ctx.font="700 27px Arial";ctx.fillText(v.muet.toUpperCase(),594,R2+10);
+ // Kotak "Apa perlu saya buat?" (lebih lebar): fokus di atas, tindakan di bawah
+ pillBg(ctx,945,R2+26,430,116,18,0.6);
+ ctx.fillStyle=u.accent;ctx.font="700 20px Arial";wrap(ctx,v.focus.toUpperCase(),945,R2-10,390,24);
+ ctx.fillStyle="#fff";ctx.font="700 19px Arial";wrap(ctx,v.next.toUpperCase(),945,R2+38,390,24);
+}
+
 export default function VisionPage(){
  const [lang,setLang]=useState<"bm"|"en">("bm");
  const [name,setName]=useState("Alya"); const [uni,setUni]=useState<UniKey>("UM");
@@ -59,6 +87,8 @@ export default function VisionPage(){
  const [focus,setFocus]=useState("Capai PNGK 3.50"); const [next,setNext]=useState("Tingkatkan latihan Matematik dan semak kemajuan setiap minggu");
  const [downloadCount,setDownloadCount]=useState(0);
  const u=universities[uni];
+ const previewRef=useRef<HTMLCanvasElement>(null);
+ const imgCache=useRef<Record<string,HTMLImageElement>>({});
  useEffect(()=>{
   (async()=>{
    try{
@@ -67,37 +97,39 @@ export default function VisionPage(){
    }catch{}
   })();
  },[]);
+ // Pratonton skrin: lukis atas canvas kecil supaya SAMA PERSIS dengan fail yang dimuat turun (tiada label berganda).
+ useEffect(()=>{
+  const canvas=previewRef.current; if(!canvas) return;
+  const ctx=canvas.getContext("2d"); if(!ctx) return;
+  const vals:PosterValues={name,career,current,target,muet,focus,next};
+  const cached=imgCache.current[u.bg];
+  if(cached){
+   ctx.clearRect(0,0,1200,1500); drawCover(ctx,cached,1200,1500); paintPoster(ctx,u,vals);
+  }else{
+   const img=new Image(); img.crossOrigin="anonymous";
+   img.onload=()=>{imgCache.current[u.bg]=img; ctx.clearRect(0,0,1200,1500); drawCover(ctx,img,1200,1500); paintPoster(ctx,u,vals)};
+   img.onerror=()=>{ctx.fillStyle=u.deep; ctx.fillRect(0,0,1200,1500); paintPoster(ctx,u,vals)};
+   img.src=u.bg;
+  }
+ },[uni,name,career,current,target,muet,focus,next,u]);
  const t=lang==="bm"?{tag:"Lebih daripada sebuah ijazah",subtag:"Satu sumbangan untuk masyarakat",university:"UNIVERSITI PILIHAN",course:"KURSUS PILIHAN",career:"KERJAYA IMPIAN",current:"PNGK SEMASA",target:"SASARAN PNGK",focus:"FOKUS UTAMA SAYA",action:"APA PERLU SAYA BUAT?",download:"Muat turun Vision Board"}:{tag:"More than a degree",subtag:"A contribution to society",university:"UNIVERSITY OF CHOICE",course:"CHOSEN PROGRAMME",career:"DREAM CAREER",current:"CURRENT CGPA",target:"TARGET CGPA",focus:"MY MAIN FOCUS",action:"WHAT SHOULD I DO?",download:"Download Vision Board"};
  const trackDownload=()=>{
   fetch("/api/stats",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({key:"vision_downloads"})}).then(r=>r.ok?r.json():null).then(d=>{if(d)setDownloadCount(d.vision_downloads||0)}).catch(()=>{});
  };
- const download=()=>{const canvas=document.createElement("canvas");canvas.width=1200;canvas.height=1500;const ctx=canvas.getContext("2d")!;const render=()=>{
-  const img=new Image();img.crossOrigin="anonymous";img.onload=()=>{drawCover(ctx,img,1200,1500);finish()};img.onerror=()=>{ctx.fillStyle=u.deep;ctx.fillRect(0,0,1200,1500);finish()};img.src=u.bg;
-  function finish(){
-   ctx.textAlign="center";
-   const R1=1033+u.yOff, R2=1166+u.yOff;
-   // Kotak "Nama Saya"
-   pillBg(ctx,222,R1,300,58);
-   ctx.fillStyle="#fff";ctx.font="700 29px Georgia";wrap(ctx,(name||"SAYA").toUpperCase(),222,R1+10,270,32);
-   // Kotak "Kerjaya Impian"
-   pillBg(ctx,594,R1,300,58);
-   ctx.fillStyle="#fff";ctx.font="700 25px Arial";wrap(ctx,career.toUpperCase(),594,R1+10,270,28);
-   // Kotak "PNGK Semasa"
-   pillBg(ctx,972,R1,270,58);
-   ctx.fillStyle=u.accent;ctx.font="700 34px Georgia";ctx.fillText(current.toUpperCase(),972,R1+12);
-   // Kotak "Sasaran PNGK"
-   pillBg(ctx,222,R2,270,58);
-   ctx.fillStyle=u.accent;ctx.font="700 34px Georgia";ctx.fillText(target.toUpperCase(),222,R2+12);
-   // Kotak "MUET"
-   pillBg(ctx,594,R2,300,58);
-   ctx.fillStyle="#fff";ctx.font="700 27px Arial";ctx.fillText(muet.toUpperCase(),594,R2+10);
-   // Kotak "Apa perlu saya buat?" (lebih lebar): fokus di atas, tindakan di bawah
-   pillBg(ctx,945,R2+26,430,116,18,0.6);
-   ctx.fillStyle=u.accent;ctx.font="700 20px Arial";wrap(ctx,focus.toUpperCase(),945,R2-10,390,24);
-   ctx.fillStyle="#fff";ctx.font="700 19px Arial";wrap(ctx,next.toUpperCase(),945,R2+38,390,24);
+ const download=()=>{
+  const canvas=document.createElement("canvas");canvas.width=1200;canvas.height=1500;const ctx=canvas.getContext("2d")!;
+  const vals:PosterValues={name,career,current,target,muet,focus,next};
+  const finish=()=>{
+   paintPoster(ctx,u,vals);
    const a=document.createElement("a");a.download=`Vision-Board-${name||"KTESA"}.png`;a.href=canvas.toDataURL("image/png");a.click();trackDownload();
-  }
- };render()};
+  };
+  const cached=imgCache.current[u.bg];
+  if(cached){drawCover(ctx,cached,1200,1500);finish();return}
+  const img=new Image();img.crossOrigin="anonymous";
+  img.onload=()=>{imgCache.current[u.bg]=img;drawCover(ctx,img,1200,1500);finish()};
+  img.onerror=()=>{ctx.fillStyle=u.deep;ctx.fillRect(0,0,1200,1500);finish()};
+  img.src=u.bg;
+ };
  return <main className="vision-page"><div className="vision-shell"><Link className="back-link" href="/"><ArrowLeft/> Kembali ke portal</Link>
   <header className="vision-head"><span><Sparkles/></span><div><small>VISION DASHBOARD</small><h1>{t.tag}</h1><p>{lang==="bm"?"Isi sasaran anda dan jana Vision Board peribadi untuk disimpan dalam telefon.":"Set your goals and create a personal Vision Board to save on your phone."}</p></div></header>
   <div className="vision-layout"><section className="vision-form"><h2><Target/> {lang==="bm"?"Bina visi anda":"Create your vision"}</h2>
@@ -110,7 +142,8 @@ export default function VisionPage(){
    <label>{t.action}<textarea value={next} onChange={e=>setNext(e.target.value)} rows={3}/></label><button onClick={download}><Download/> {t.download}</button>
    <p style={{fontSize:12,opacity:.7,marginTop:8}}>{lang==="bm"?`${downloadCount.toLocaleString("ms-MY")} Vision Board telah dimuat turun setakat ini.`:`${downloadCount.toLocaleString("ms-MY")} Vision Boards downloaded so far.`}</p>
   </section>
-  <section className="vision-preview-wrap"><h2><Eye/> {lang==="bm"?"Vision Board Saya":"My Vision Board"}</h2><div className="vision-poster" style={{"--poster-deep":u.deep,"--poster-accent":u.accent,backgroundImage:`url(${u.bg})`} as React.CSSProperties}>
-   <div className="vision-title"><strong>VISION</strong><span>DASHBOARD {(name||"SAYA").toUpperCase()}</span><em>{t.tag}</em><small>{t.subtag}</small></div><div className="vision-uni"><span>{t.university}</span><strong>{u.name}</strong><b>{course}</b></div><div className="vision-mini-grid"><div><span>{t.career}</span><b>{career}</b></div><div><span>{t.current}</span><b>{current}</b></div><div><span>{t.target}</span><b>{target}</b></div><div><span>MUET</span><b>{muet}</b></div></div><div className="vision-status"><div><span>{t.focus}</span><p>{focus}</p></div><div><span>{t.action}</span><p>{next}</p></div></div><blockquote>{lang==="bm"?"Ini haluan saya. Ini sasaran saya.":"My path. My goal. My future."}</blockquote><footer>KTESA MENCIPTA KEJAYAAN</footer>
-  </div></section></div></div></main>
+  <section className="vision-preview-wrap"><h2><Eye/> {lang==="bm"?"Vision Board Saya":"My Vision Board"}</h2>
+   <canvas ref={previewRef} width={1200} height={1500} className="vision-poster" style={{"--poster-deep":u.deep,"--poster-accent":u.accent,padding:0,width:"100%",display:"block"} as React.CSSProperties}/>
+   <p style={{fontSize:12,opacity:.65,marginTop:10,textAlign:"center"}}>{lang==="bm"?"Pratonton ini sama seperti fail yang akan dimuat turun.":"This preview matches the file you'll download."}</p>
+  </section></div></div></main>
 }
