@@ -16,7 +16,8 @@ export default function CoretanManager({email,role}:{email:string;role:string}){
    const text=await r.text();let d:any={};try{d=text?JSON.parse(text):{}}catch{}
    if(!r.ok)throw new Error(d?.error||text||`Ralat pelayan (${r.status}).`);
    setOpen(false);setEditing(null);
-   setSuccess(status==="published"?"Coretan berjaya diterbitkan.":"Draf berjaya disimpan.");
+   const base=status==="published"?"Coretan berjaya diterbitkan.":"Draf berjaya disimpan.";
+   setSuccess(d?.warning?`${base} ${d.warning}`:base);
    await load();
   }catch(err){
    console.error("Ralat menerbitkan Coretan Kaunselor:",err);
