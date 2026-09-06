@@ -49,7 +49,7 @@
 .coretan-heading-row>a,.coretan-mobile-more{display:inline-flex;align-items:center;gap:7px;color:#6d3a7c;font-weight:700;text-decoration:none}
 .home-coretan-grid,.coretan-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
 .home-coretan-card,.coretan-card{overflow:hidden;background:#fff;border:1px solid #e8e0eb;border-radius:20px;box-shadow:0 12px 30px rgba(65,42,72,.07)}
-.home-coretan-card>img,.coretan-card>img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+.home-coretan-card>img,.coretan-card>img{width:100%;aspect-ratio:16/10;object-fit:contain;background:#f4eef8;display:block}
 .home-coretan-card>div,.coretan-card-body{padding:22px}
 .home-coretan-card h3,.coretan-card h2{margin:12px 0 9px;color:#17364b}
 .home-coretan-card p{color:#687884;line-height:1.65}
@@ -77,5 +77,7 @@
 .coretan-admin-list{display:grid;gap:10px}.coretan-admin-list>article{display:grid;grid-template-columns:72px minmax(0,1fr) auto;align-items:center;gap:14px;background:#fff;border:1px solid #e3e7e8;border-radius:13px;padding:12px}
 .coretan-admin-list img,.coretan-placeholder{width:72px;height:60px;border-radius:9px;object-fit:cover;background:#f1edf3;display:grid;place-items:center;color:#755184}
 .coretan-admin-list h3{margin:5px 0 2px;font-size:16px}.coretan-admin-list p{margin:0;font-size:12px;color:#72808a}.coretan-row-actions{display:flex;gap:6px}.coretan-row-actions button{font-size:12px;background:#f2f4f4}
+.form-success{background:#eef8f1;border:1px solid #b7ddc3;color:#276240;padding:12px 15px;border-radius:9px;margin-bottom:14px}
+.coretan-empty-hint{padding:20px 0 4px;color:#7c6b86;font-size:14px}
 @media(max-width:850px){.home-coretan-grid,.coretan-grid{grid-template-columns:1fr}.coretan-heading-row>a{display:none}.coretan-mobile-more{display:inline-flex}.coretan-manager-head{align-items:flex-start;flex-direction:column}.coretan-form-grid{grid-template-columns:1fr}.coretan-admin-list>article{grid-template-columns:60px minmax(0,1fr)}.coretan-admin-list img,.coretan-placeholder{width:60px;height:54px}.coretan-row-actions{grid-column:1/-1;justify-content:flex-end}}
 
