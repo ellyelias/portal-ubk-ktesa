@@ -45,59 +45,69 @@ export async function GET(){
   return Response.json({posts:rows.map(row=>({...row,imageUrl:row.imageKey?`/api/coretan/media/${encodeURIComponent(row.imageKey)}`:null}))});
 }
 export async function POST(request:Request){
-  const user=await portalUser();
-  if(!user)return Response.json({error:"Akses tidak dibenarkan."},{status:403});
-  if(user.role!=="kaunselor")return Response.json({error:"Hanya kaunselor boleh menerbitkan Coretan Kaunselor."},{status:403});
-  const form=await request.formData();
-  const id=Number(clean(form.get("id"),20)||"0");
-  const type=clean(form.get("type"),30).toLowerCase();
-  const title=clean(form.get("title"),140);
-  const body=clean(form.get("body"),12000);
-  const authorName=clean(form.get("authorName"),80);
-  const status=clean(form.get("status"),20).toLowerCase();
-  const image=form.get("image");
-  if(!TYPES.has(type))return Response.json({error:"Jenis posting tidak sah."},{status:400});
-  if(!STATUSES.has(status))return Response.json({error:"Status tidak sah."},{status:400});
-  if(!title)return Response.json({error:"Tajuk diperlukan."},{status:400});
-  if(!body&&type!=="poster")return Response.json({error:"Kandungan diperlukan."},{status:400});
-  if(!authorName)return Response.json({error:"Nama kaunselor diperlukan."},{status:400});
-  const db=getDb(); const now=new Date().toISOString();
-  if(id){
-    const [existing]=await db.select().from(counselorPosts)
-      .where(and(eq(counselorPosts.id,id),eq(counselorPosts.authorEmail,user.email))).limit(1);
-    if(!existing)return Response.json({error:"Coretan tidak ditemui."},{status:404});
-    let meta:null|{key:string;name:string;type:string}=null;
-    if(image instanceof File&&image.size>0){
-      meta=await saveImage(image,id);
-      if(existing.imageKey&&env.CORETAN_MEDIA)await env.CORETAN_MEDIA.delete(existing.imageKey);
+  try{
+    const user=await portalUser();
+    if(!user)return Response.json({error:"Akses tidak dibenarkan."},{status:403});
+    if(user.role!=="kaunselor")return Response.json({error:"Hanya kaunselor boleh menerbitkan Coretan Kaunselor."},{status:403});
+    const form=await request.formData();
+    const id=Number(clean(form.get("id"),20)||"0");
+    const type=clean(form.get("type"),30).toLowerCase();
+    const title=clean(form.get("title"),140);
+    const body=clean(form.get("body"),12000);
+    const authorName=clean(form.get("authorName"),80);
+    const status=clean(form.get("status"),20).toLowerCase();
+    const image=form.get("image");
+    if(!TYPES.has(type))return Response.json({error:"Jenis posting tidak sah."},{status:400});
+    if(!STATUSES.has(status))return Response.json({error:"Status tidak sah."},{status:400});
+    if(!title)return Response.json({error:"Tajuk diperlukan."},{status:400});
+    if(!body&&type!=="poster")return Response.json({error:"Kandungan diperlukan."},{status:400});
+    if(!authorName)return Response.json({error:"Nama kaunselor diperlukan."},{status:400});
+    const db=getDb(); const now=new Date().toISOString();
+    if(id){
+      const [existing]=await db.select().from(counselorPosts)
+        .where(and(eq(counselorPosts.id,id),eq(counselorPosts.authorEmail,user.email))).limit(1);
+      if(!existing)return Response.json({error:"Coretan tidak ditemui."},{status:404});
+      let meta:null|{key:string;name:string;type:string}=null;
+      if(image instanceof File&&image.size>0){
+        meta=await saveImage(image,id);
+        if(existing.imageKey&&env.CORETAN_MEDIA)await env.CORETAN_MEDIA.delete(existing.imageKey).catch(()=>{});
+      }
+      await db.update(counselorPosts).set({
+        type,title,body,authorName,status,updatedAt:now,
+        publishedAt:status==="published"?(existing.publishedAt||now):null,
+        ...(meta?{imageKey:meta.key,imageName:meta.name,imageType:meta.type}:{})
+      }).where(eq(counselorPosts.id,id));
+      return Response.json({ok:true,id});
     }
-    await db.update(counselorPosts).set({
-      type,title,body,authorName,status,updatedAt:now,
-      publishedAt:status==="published"?(existing.publishedAt||now):null,
-      ...(meta?{imageKey:meta.key,imageName:meta.name,imageType:meta.type}:{})
-    }).where(eq(counselorPosts.id,id));
-    return Response.json({ok:true,id});
+    let meta:null|{key:string;name:string;type:string}=null;
+    if(image instanceof File&&image.size>0)meta=await saveImage(image);
+    const [created]=await db.insert(counselorPosts).values({
+      type,title,body,authorEmail:user.email,authorName,status,
+      imageKey:meta?.key||null,imageName:meta?.name||null,imageType:meta?.type||null,
+      createdAt:now,updatedAt:now,publishedAt:status==="published"?now:null
+    }).returning({id:counselorPosts.id});
+    return Response.json({ok:true,id:created.id});
+  }catch(err){
+    console.error("Ralat menyimpan Coretan Kaunselor:",err);
+    return Response.json({error:err instanceof Error?err.message:"Ralat pelayan semasa menyimpan coretan."},{status:500});
   }
-  let meta:null|{key:string;name:string;type:string}=null;
-  if(image instanceof File&&image.size>0)meta=await saveImage(image);
-  const [created]=await db.insert(counselorPosts).values({
-    type,title,body,authorEmail:user.email,authorName,status,
-    imageKey:meta?.key||null,imageName:meta?.name||null,imageType:meta?.type||null,
-    createdAt:now,updatedAt:now,publishedAt:status==="published"?now:null
-  }).returning({id:counselorPosts.id});
-  return Response.json({ok:true,id:created.id});
 }
 export async function DELETE(request:Request){
-  const user=await portalUser();
-  if(!user)return Response.json({error:"Akses tidak dibenarkan."},{status:403});
-  const id=Number(new URL(request.url).searchParams.get("id")||"0");
-  if(!id)return Response.json({error:"ID tidak sah."},{status:400});
-  const db=getDb();
-  const [existing]=await db.select().from(counselorPosts).where(eq(counselorPosts.id,id)).limit(1);
-  if(!existing)return Response.json({error:"Coretan tidak ditemui."},{status:404});
-  if(user.role!=="admin"&&existing.authorEmail!==user.email)
-    return Response.json({error:"Anda tidak boleh memadam coretan kaunselor lain."},{status:403});
-  if(existing.imageKey&&env.CORETAN_MEDIA)await env.CORETAN_MEDIA.delete(existing.imageKey);
-  await db.delete(counselorPosts).where(eq(counselorPosts.id,id));
-  return Response.json({ok:true});
+  try{
+    const user=await portalUser();
+    if(!user)return Response.json({error:"Akses tidak dibenarkan."},{status:403});
+    const id=Number(new URL(request.url).searchParams.get("id")||"0");
+    if(!id)return Response.json({error:"ID tidak sah."},{status:400});
+    const db=getDb();
+    const [existing]=await db.select().from(counselorPosts).where(eq(counselorPosts.id,id)).limit(1);
+    if(!existing)return Response.json({error:"Coretan tidak ditemui."},{status:404});
+    if(user.role!=="admin"&&existing.authorEmail!==user.email)
+      return Response.json({error:"Anda tidak boleh memadam coretan kaunselor lain."},{status:403});
+    if(existing.imageKey&&env.CORETAN_MEDIA)await env.CORETAN_MEDIA.delete(existing.imageKey).catch(()=>{});
+    await db.delete(counselorPosts).where(eq(counselorPosts.id,id));
+    return Response.json({ok:true});
+  }catch(err){
+    console.error("Ralat memadam Coretan Kaunselor:",err);
+    return Response.json({error:err instanceof Error?err.message:"Ralat pelayan semasa memadam coretan."},{status:500});
+  }
 }
