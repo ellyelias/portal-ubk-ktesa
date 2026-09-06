@@ -26,14 +26,14 @@ function clean(value:FormDataEntryValue|null,max:number){
   return typeof value==="string"?value.trim().slice(0,max):"";
 }
 async function saveImage(file:File,postId?:number){
-  if(!env.CORETAN_MEDIA)throw new Error("R2 binding CORETAN_MEDIA belum dikonfigurasi.");
   if(!file.type.startsWith("image/"))throw new Error("Fail poster mestilah imej.");
   if(file.size>MAX_IMAGE)throw new Error("Saiz poster maksimum ialah 8 MB.");
   const ext=(file.name.split(".").pop()||"jpg").replace(/[^a-zA-Z0-9]/g,"").slice(0,8)||"jpg";
   const key=`coretan/${postId||"new"}-${Date.now()}-${crypto.randomUUID()}.${ext}`;
-  await env.CORETAN_MEDIA.put(key,await file.arrayBuffer(),{httpMetadata:{contentType:file.type}});
+  await env.CORETAN_MEDIA!.put(key,await file.arrayBuffer(),{httpMetadata:{contentType:file.type}});
   return {key,name:file.name.slice(0,160),type:file.type};
 }
+const MEDIA_UNAVAILABLE_WARNING="Gambar belum dapat dimuat naik kerana storan poster belum disediakan. Coretan diterbitkan tanpa gambar.";
 export async function GET(){
   const user=await portalUser();
   if(!user)return Response.json({error:"Akses tidak dibenarkan."},{status:403});
@@ -68,25 +68,37 @@ export async function POST(request:Request){
         .where(and(eq(counselorPosts.id,id),eq(counselorPosts.authorEmail,user.email))).limit(1);
       if(!existing)return Response.json({error:"Coretan tidak ditemui."},{status:404});
       let meta:null|{key:string;name:string;type:string}=null;
+      let warning:string|null=null;
       if(image instanceof File&&image.size>0){
-        meta=await saveImage(image,id);
-        if(existing.imageKey&&env.CORETAN_MEDIA)await env.CORETAN_MEDIA.delete(existing.imageKey).catch(()=>{});
+        if(!env.CORETAN_MEDIA){
+          warning=MEDIA_UNAVAILABLE_WARNING;
+        }else{
+          meta=await saveImage(image,id);
+          if(existing.imageKey)await env.CORETAN_MEDIA.delete(existing.imageKey).catch(()=>{});
+        }
       }
       await db.update(counselorPosts).set({
         type,title,body,authorName,status,updatedAt:now,
         publishedAt:status==="published"?(existing.publishedAt||now):null,
         ...(meta?{imageKey:meta.key,imageName:meta.name,imageType:meta.type}:{})
       }).where(eq(counselorPosts.id,id));
-      return Response.json({ok:true,id});
+      return Response.json({ok:true,id,...(warning?{warning}:{})});
     }
     let meta:null|{key:string;name:string;type:string}=null;
-    if(image instanceof File&&image.size>0)meta=await saveImage(image);
+    let warning:string|null=null;
+    if(image instanceof File&&image.size>0){
+      if(!env.CORETAN_MEDIA){
+        warning=MEDIA_UNAVAILABLE_WARNING;
+      }else{
+        meta=await saveImage(image);
+      }
+    }
     const [created]=await db.insert(counselorPosts).values({
       type,title,body,authorEmail:user.email,authorName,status,
       imageKey:meta?.key||null,imageName:meta?.name||null,imageType:meta?.type||null,
       createdAt:now,updatedAt:now,publishedAt:status==="published"?now:null
     }).returning({id:counselorPosts.id});
-    return Response.json({ok:true,id:created.id});
+    return Response.json({ok:true,id:created.id,...(warning?{warning}:{})});
   }catch(err){
     console.error("Ralat menyimpan Coretan Kaunselor:",err);
     return Response.json({error:err instanceof Error?err.message:"Ralat pelayan semasa menyimpan coretan."},{status:500});
