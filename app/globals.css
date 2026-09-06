@@ -42,3 +42,39 @@
 @media(max-width:900px){.vision-layout{grid-template-columns:1fr}.vision-preview-wrap{order:-1}.quick-grid{grid-template-columns:1fr 1fr}}@media(max-width:600px){.vision-page{padding:28px 14px}.vision-head{align-items:flex-start}.vision-head h1{font-size:34px}.vision-form,.vision-preview-wrap{padding:16px}.vision-fields{grid-template-columns:1fr}.vision-poster{padding:5%}.quick-grid{grid-template-columns:1fr}}
 .vision-poster{position:relative}.vision-poster>*{position:relative;z-index:1}.vision-mark{position:absolute;z-index:0;inset:22% 5% auto;color:var(--poster-accent);font:800 clamp(70px,15vw,190px) Arial,sans-serif;letter-spacing:-.06em;opacity:.09;white-space:nowrap}
 .vision-title{display:flex;flex-direction:column;align-items:center;margin-bottom:4%}.vision-title>strong{color:var(--poster-accent);font:600 clamp(39px,7vw,86px) Georgia,serif;line-height:.92;letter-spacing:.02em}.vision-title>span{font:600 clamp(16px,2.7vw,34px) Georgia,serif;letter-spacing:.04em}.vision-title>em{font-style:normal;font-weight:800;text-transform:uppercase;letter-spacing:.18em;font-size:clamp(7px,.9vw,12px);margin-top:2%}.vision-title>small{color:var(--poster-accent);text-transform:uppercase;letter-spacing:.2em;font-size:clamp(6px,.75vw,10px);margin-top:1%}.vision-title+.vision-uni{background:#03142666}
+
+/* v86 — Coretan Kaunselor */
+.home-coretan{background:linear-gradient(180deg,#fbf9fd 0%,#fff 100%)}
+.coretan-heading-row{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.coretan-heading-row>a,.coretan-mobile-more{display:inline-flex;align-items:center;gap:7px;color:#6d3a7c;font-weight:700;text-decoration:none}
+.home-coretan-grid,.coretan-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.home-coretan-card,.coretan-card{overflow:hidden;background:#fff;border:1px solid #e8e0eb;border-radius:20px;box-shadow:0 12px 30px rgba(65,42,72,.07)}
+.home-coretan-card>img,.coretan-card>img{width:100%;aspect-ratio:16/10;object-fit:cover;display:block}
+.home-coretan-card>div,.coretan-card-body{padding:22px}
+.home-coretan-card h3,.coretan-card h2{margin:12px 0 9px;color:#17364b}
+.home-coretan-card p{color:#687884;line-height:1.65}
+.home-coretan-card footer,.coretan-meta{margin-top:18px;padding-top:15px;border-top:1px solid #eee8f0;display:flex;justify-content:space-between;gap:12px;font-size:12px;color:#6f7d86}
+.home-coretan-card footer span,.coretan-meta span{display:flex;align-items:center;gap:5px}
+.coretan-type{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;border-radius:999px;padding:7px 10px;background:#f2eaf5;color:#6d3a7c}
+.coretan-type.poster{background:#e7f4f2;color:#16786f}.coretan-type.pengumuman{background:#fff2d9;color:#97630c}.coretan-type svg{width:14px;height:14px}
+.coretan-mobile-more{display:none;margin-top:20px}.coretan-page{min-height:100vh;background:#faf8fb}
+.coretan-hero{padding:54px 20px;background:linear-gradient(135deg,#40214b,#794587);color:#fff}
+.coretan-back{display:inline-flex;align-items:center;gap:7px;color:#fff;text-decoration:none;margin-bottom:34px;opacity:.9}
+.coretan-kicker{display:block;font-size:12px;letter-spacing:.13em;font-weight:800;opacity:.8}.coretan-hero h1{font-size:clamp(38px,7vw,68px);margin:8px 0 12px}
+.coretan-hero p{font-size:18px;opacity:.87}.coretan-list-section{padding-top:46px;padding-bottom:70px}.coretan-card .coretan-body{white-space:pre-wrap;color:#566975;line-height:1.72}
+.coretan-empty{padding:28px;color:#74808a;text-align:center}.coretan-dashboard-tabs{display:flex;gap:8px;padding:12px 24px;background:#fff;border-bottom:1px solid #e3e7e8}
+.coretan-dashboard-tabs button{border:0;background:#f0f2f3;border-radius:10px;padding:10px 16px;font-weight:700;cursor:pointer;color:#53646f}
+.coretan-dashboard-tabs button.active{background:#663876;color:#fff}.coretan-manager{padding:24px;min-height:500px}
+.coretan-manager-head{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:24px}.coretan-manager-head small{font-weight:800;letter-spacing:.12em;color:#764587}
+.coretan-manager-head h2{margin:5px 0}.coretan-new-btn,.coretan-editor button,.coretan-row-actions button{display:inline-flex;align-items:center;gap:7px;border:0;border-radius:10px;padding:10px 14px;cursor:pointer}
+.coretan-new-btn{background:#663876;color:#fff;font-weight:700}.coretan-editor{border:1px solid #e2d8e6;border-radius:16px;background:#fff;padding:20px;margin-bottom:24px}
+.coretan-editor>header{display:flex;justify-content:space-between;align-items:center}.coretan-editor>header button{background:transparent}
+.coretan-editor label{display:flex;flex-direction:column;gap:7px;font-weight:700;color:#334955;margin-top:14px}
+.coretan-editor input,.coretan-editor textarea,.coretan-editor select{width:100%;border:1px solid #ccd4d9;border-radius:9px;padding:11px 12px;font:inherit}
+.coretan-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.coretan-upload{border:1px dashed #bbaac2;padding:16px;border-radius:12px;background:#faf7fb}
+.coretan-upload small{font-weight:400;color:#77858d}.coretan-editor-preview{max-width:420px;max-height:300px;object-fit:contain;border-radius:12px;margin-top:12px}
+.coretan-editor footer{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}.coretan-editor footer button{background:#edf0f1}.coretan-editor footer .publish{background:#663876;color:#fff}
+.coretan-admin-list{display:grid;gap:10px}.coretan-admin-list>article{display:grid;grid-template-columns:72px minmax(0,1fr) auto;align-items:center;gap:14px;background:#fff;border:1px solid #e3e7e8;border-radius:13px;padding:12px}
+.coretan-admin-list img,.coretan-placeholder{width:72px;height:60px;border-radius:9px;object-fit:cover;background:#f1edf3;display:grid;place-items:center;color:#755184}
+.coretan-admin-list h3{margin:5px 0 2px;font-size:16px}.coretan-admin-list p{margin:0;font-size:12px;color:#72808a}.coretan-row-actions{display:flex;gap:6px}.coretan-row-actions button{font-size:12px;background:#f2f4f4}
+@media(max-width:850px){.home-coretan-grid,.coretan-grid{grid-template-columns:1fr}.coretan-heading-row>a{display:none}.coretan-mobile-more{display:inline-flex}.coretan-manager-head{align-items:flex-start;flex-direction:column}.coretan-form-grid{grid-template-columns:1fr}.coretan-admin-list>article{grid-template-columns:60px minmax(0,1fr)}.coretan-admin-list img,.coretan-placeholder{width:60px;height:54px}.coretan-row-actions{grid-column:1/-1;justify-content:flex-end}}
