@@ -37,7 +37,7 @@ const careers = {
     source:"https://study.um.edu.my/bachelor-of-electrical-engineering"
   },
   guru: {
-    name:"Pendidikan", course:"Pendidikan / TESL / Pendidikan Khas / Pendidikan Sains & Matematik / Pendidikan Sukan", stream:"Aliran bergantung pada bidang pengkhususan.",
+    name:"Pendidikan", course:"Pendidikan Sains & Matematik / TESL / Pendidikan Khas / Bimbingan & Kaunseling / Pendidikan Sukan", stream:"Aliran bergantung pada bidang pengkhususan.",
     spm:["Bahasa Melayu dan Sejarah perlu memenuhi syarat am.","Subjek yang hendak diajar perlu mempunyai keputusan yang kuat."],
     stpm:["Pilih subjek yang sepadan dengan opsyen pengajaran","Pengajian Am","Kukuhkan Bahasa Inggeris dan MUET"],
     target:"Sasarkan B+ atau A dalam subjek pengkhususan serta PNGK sekurang-kurangnya 3.00.",
@@ -584,6 +584,49 @@ const financeComparisons:Record<FinanceProgramKey,Requirement[]>={
   {uni:"Universiti Utara Malaysia (UUM)",program:"Sarjana Muda Kewangan dan Perbankan Islam dengan Kepujian",pngk:null,spm:"Kepujian Matematik/Matematik Tambahan; atau lulus Matematik bersama kepujian subjek Perakaunan/Ekonomi/Perdagangan/Perniagaan",stpm:"Terbuka kepada STPM Sastera atau Sains; syarat am universiti turut terpakai",muet:"Band 2.0",extra:"UU6343002 · 8 semester",source:"https://www.uum.edu.my/admissions/application-guidelines/undergraduate-local/local/bachelor-of-islamic-finance-and-banking-with-honours",spmRules:[{subject:"Matematik / Matematik Tambahan",minimum:"C"}]}
  ]
 };
+type EducationProgramKey="biologi"|"fizik"|"kimia"|"matematik"|"sains"|"tesl"|"khas"|"kaunseling"|"sukan";
+const educationProgramNames:Record<EducationProgramKey,string>={
+ biologi:"Pendidikan Biologi",
+ fizik:"Pendidikan Fizik",
+ kimia:"Pendidikan Kimia",
+ matematik:"Pendidikan Matematik",
+ sains:"Pendidikan Sains",
+ tesl:"TESL",
+ khas:"Pendidikan Khas",
+ kaunseling:"Bimbingan & Kaunseling",
+ sukan:"Pendidikan Sains Sukan"
+};
+const educationComparisons:Record<EducationProgramKey,Requirement[]>={
+ biologi:[
+  {uni:"Universiti Pendidikan Sultan Idris (UPSI)",program:"Ijazah Sarjana Muda Pendidikan (Biologi) dengan Kepujian",pngk:2.75,spm:"Sekurang-kurangnya Gred C dalam Biologi",stpm:"Minimum B- dalam Biology dan satu daripada Physics/Chemistry/Mathematics (M)/(T)",muet:"Band 2.0",extra:"MEdSI + temu duga; 8 semester",source:"https://kemasukan.upsi.edu.my/wp-content/uploads/2025/01/buku_syarat_2025_compressed.pdf",spmRules:[{subject:"Biologi",minimum:"C"}]}
+ ],
+ fizik:[
+  {uni:"Universiti Pendidikan Sultan Idris (UPSI)",program:"Ijazah Sarjana Muda Pendidikan (Fizik) dengan Kepujian",pngk:null,spm:"Syarat khusus SPM dan program perlu disemak dalam buku syarat UPSI",stpm:"Program memerlukan latar Fizik/STEM mengikut syarat khas semasa",muet:"Band 2.0",extra:"MEdSI + temu duga; program masih ditawarkan oleh FSM UPSI",source:"https://fsmt.upsi.edu.my/sarjana-muda-s/?lang=ms"}
+ ],
+ kimia:[
+  {uni:"Universiti Pendidikan Sultan Idris (UPSI)",program:"Ijazah Sarjana Muda Pendidikan (Kimia) dengan Kepujian",pngk:null,spm:"Syarat khusus SPM dan program perlu disemak dalam buku syarat UPSI",stpm:"Program memerlukan latar Kimia/STEM mengikut syarat khas semasa",muet:"Band 2.0",extra:"MEdSI + temu duga; program masih ditawarkan oleh FSM UPSI",source:"https://fsmt.upsi.edu.my/sarjana-muda-s/?lang=ms"}
+ ],
+ matematik:[
+  {uni:"Universiti Pendidikan Sultan Idris (UPSI)",program:"Ijazah Sarjana Muda Sains (Matematik) dengan Pendidikan",pngk:2.75,spm:"Minimum B Matematik dan sekurang-kurangnya lulus Matematik Tambahan",stpm:"Minimum B- Mathematics (T) dan satu daripada Physics/Chemistry/Biology/ICT",muet:"Band 2.0",extra:"MEdSI + temu duga; 8 semester",source:"https://kemasukan.upsi.edu.my/wp-content/uploads/2024/02/FSM_A232.pdf",spmRules:[{subject:"Matematik",minimum:"B"},{subject:"Matematik Tambahan",minimum:"E"}]},
+  {uni:"Universiti Pendidikan Sultan Idris (UPSI)",program:"Ijazah Sarjana Muda Pendidikan (Matematik) dengan Kepujian",pngk:null,spm:"Program masih ditawarkan; syarat khusus perlu disemak dalam buku syarat sesi semasa",stpm:"Latar Mathematics diperlukan mengikut syarat khas program",muet:"Band 2.0",extra:"MEdSI + temu duga",source:"https://fsmt.upsi.edu.my/sarjana-muda-s/?lang=ms"}
+ ],
+ sains:[
+  {uni:"Universiti Pendidikan Sultan Idris (UPSI)",program:"Ijazah Sarjana Muda Pendidikan (Sains) dengan Kepujian",pngk:null,spm:"Syarat Sains dan Matematik mengikut program",stpm:"Kombinasi subjek Sains/STEM mengikut syarat khas program",muet:"Band 2.0",extra:"MEdSI + temu duga; program masih ditawarkan oleh FSM UPSI",source:"https://fsmt.upsi.edu.my/sarjana-muda-s/?lang=ms"}
+ ],
+ tesl:[
+  {uni:"Universiti Malaya (UM)",program:"Bachelor of Education Teaching of English as a Second Language (TESL)",pngk:3.00,spm:"Gred A Bahasa Inggeris dan minimum C Matematik",stpm:"Lulus STPM aliran Sains atau Sastera dengan PNGK minimum 3.00",muet:"Band 4.0",extra:"MEdSI + temu duga; syarat angka dirujuk daripada dokumen kemasukan UM yang diterbitkan",source:"https://study.um.edu.my/doc/brochures/SATU_Requirement_2023_final.pdf",spmRules:[{subject:"Bahasa Inggeris",minimum:"A"},{subject:"Matematik",minimum:"C"}]},
+  {uni:"Universiti Kebangsaan Malaysia (UKM)",program:"Bachelor of Education (Hons) TESL",pngk:null,spm:"Memenuhi syarat program dan Bahasa Inggeris yang ditetapkan fakulti",stpm:"Program menerima aliran Sastera/Sains tertakluk syarat khusus",muet:"Memenuhi tahap Bahasa Inggeris yang ditetapkan fakulti",extra:"Temu duga jika ditetapkan; program masih disenaraikan secara rasmi",source:"https://www.ukm.my/studyukm/teaching-of-english-as-a-second-language-tesl-bachelor-of-education-hons/"}
+ ],
+ khas:[
+  {uni:"Universiti Pendidikan Sultan Idris (UPSI)",program:"Ijazah Sarjana Muda Pendidikan (Pendidikan Khas) dengan Kepujian",pngk:3.00,spm:"Minimum C Matematik/Matematik Tambahan dan subjek Sains berkaitan; Bahasa Inggeris mengikut syarat program",stpm:"Memenuhi syarat am STPM UPSI",muet:"Band 2.0",extra:"MEdSI + temu duga; 8 semester",source:"https://kemasukan.upsi.edu.my/wp-content/uploads/2025/01/buku_syarat_2025_compressed.pdf",spmRules:[{subject:"Matematik / Matematik Tambahan",minimum:"C"},{subject:"Sains / Fizik / Kimia / Biologi",minimum:"C"}]}
+ ],
+ kaunseling:[
+  {uni:"Universiti Pendidikan Sultan Idris (UPSI)",program:"Ijazah Sarjana Muda Pendidikan (Bimbingan dan Kaunseling) dengan Kepujian",pngk:3.00,spm:"Minimum C Matematik/Matematik Tambahan dan minimum C satu subjek Sains",stpm:"Memenuhi syarat am STPM UPSI",muet:"Band 2.0",extra:"MEdSI + temu duga + ujian khas; 8 semester",source:"https://kemasukan.upsi.edu.my/wp-content/uploads/2025/01/buku_syarat_2025_compressed.pdf",spmRules:[{subject:"Matematik / Matematik Tambahan",minimum:"C"},{subject:"Sains / Fizik / Kimia / Biologi",minimum:"C"}]}
+ ],
+ sukan:[
+  {uni:"Universiti Pendidikan Sultan Idris (UPSI)",program:"Sarjana Muda Pendidikan (Sains Sukan) dengan Kepujian",pngk:null,spm:"Minimum C Matematik dan minimum E satu subjek Sains/Sains Sukan/Fizik/Kimia/Biologi",stpm:"Memenuhi syarat am STPM universiti",muet:"Band 2.0",extra:"Sekurang-kurangnya mewakili daerah dalam sukan; MEdSI + temu duga + ujian khas; syarat kesihatan fizikal turut terpakai",source:"https://fssk.upsi.edu.my/?lang=ms&page_id=272",spmRules:[{subject:"Matematik",minimum:"C"},{subject:"Sains / Sains Sukan / Fizik / Kimia / Biologi",minimum:"E"}]}
+ ]
+};
 type EngineeringProgramKey="elektrik"|"mekanikal"|"awam"|"kimia"|"mekatronik"|"komputer"|"pembuatan"|"bahan"|"aeroangkasa"|"automotif"|"bioperubatan"|"alam_sekitar"|"petroleum"|"marin"|"telekomunikasi";
 const engineeringProgramNames:Record<EngineeringProgramKey,string>={elektrik:"Kejuruteraan Elektrik / Elektrik dan Elektronik",mekanikal:"Kejuruteraan Mekanikal",awam:"Kejuruteraan Awam",kimia:"Kejuruteraan Kimia",mekatronik:"Kejuruteraan Mekatronik",komputer:"Kejuruteraan Komputer",pembuatan:"Kejuruteraan Pembuatan",bahan:"Kejuruteraan Bahan",aeroangkasa:"Kejuruteraan Aeroangkasa",automotif:"Kejuruteraan Automotif",bioperubatan:"Kejuruteraan Bioperubatan",alam_sekitar:"Kejuruteraan Alam Sekitar",petroleum:"Kejuruteraan Petroleum",marin:"Kejuruteraan Marin / Seni Bina Kapal",telekomunikasi:"Teknologi Kejuruteraan Telekomunikasi"};
 const engineeringComparisons:Record<EngineeringProgramKey,Requirement[]>={
@@ -655,9 +698,10 @@ export default function LaluanPage(){
  const [selectedPackage,setSelectedPackage]=useState<PackageKey>("p1");
  const [selectedRequirement,setSelectedRequirement]=useState(0);
  const [selectedEngineering,setSelectedEngineering]=useState<EngineeringProgramKey>("elektrik");
+ const [selectedEducation,setSelectedEducation]=useState<EducationProgramKey>("biologi");
  const [selectedFinance,setSelectedFinance]=useState<FinanceProgramKey>("perakaunan");
  const [spmGrades,setSpmGrades]=useState<Record<string,Grade|"">>({});
- const item=careers[selected]; const requirements=selected==="jurutera"?engineeringComparisons[selectedEngineering]:selected==="akauntan"?financeComparisons[selectedFinance]:comparisons[selected]; const packageItem=packages[selectedPackage];
+ const item=careers[selected]; const requirements=selected==="jurutera"?engineeringComparisons[selectedEngineering]:selected==="guru"?educationComparisons[selectedEducation]:selected==="akauntan"?financeComparisons[selectedFinance]:comparisons[selected]; const packageItem=packages[selectedPackage];
  const numeric=requirements.filter(r=>r.pngk!==null) as (Requirement&{pngk:number})[];
  const low=numeric.length?numeric.reduce((a,b)=>a.pngk<=b.pngk?a:b):null;
  const high=numeric.length?numeric.reduce((a,b)=>a.pngk>=b.pngk?a:b):null;
@@ -683,9 +727,10 @@ export default function LaluanPage(){
    <article className="official-card"><div className="career-card-head"><GraduationCap/><div><small>CONTOH SYARAT SEMASA</small><h3>Semak sebelum memohon</h3></div></div><p>{item.official}</p><a href={item.source} target="_blank" rel="noopener noreferrer">Buka sumber rasmi <ExternalLink/></a></article>
   </div>
   {selected==="jurutera"&&<section className="career-picker"><label htmlFor="engineering-program">Program kejuruteraan untuk dibandingkan</label><select id="engineering-program" value={selectedEngineering} onChange={e=>{setSelectedEngineering(e.target.value as EngineeringProgramKey);setSelectedRequirement(0);setSpmGrades({})}}>{Object.entries(engineeringProgramNames).map(([key,name])=><option key={key} value={key}>{name}</option>)}</select></section>}
+  {selected==="guru"&&<section className="career-picker"><label htmlFor="education-program">Program pendidikan untuk dibandingkan</label><select id="education-program" value={selectedEducation} onChange={e=>{setSelectedEducation(e.target.value as EducationProgramKey);setSelectedRequirement(0);setSpmGrades({})}}>{Object.entries(educationProgramNames).map(([key,name])=><option key={key} value={key}>{name}</option>)}</select></section>}
   {selected==="akauntan"&&<section className="career-picker"><label htmlFor="finance-program">Program Perakaunan, Kewangan & Ekonomi untuk dibandingkan</label><select id="finance-program" value={selectedFinance} onChange={e=>{setSelectedFinance(e.target.value as FinanceProgramKey);setSelectedRequirement(0);setSpmGrades({})}}>{Object.entries(financeProgramNames).map(([key,name])=><option key={key} value={key}>{name}</option>)}</select></section>}
   <section className="uni-compare">
-   <div className="compare-heading"><div><small>SYARAT KHAS PROGRAM · SESI 2026/2027</small><h2>{selected==="jurutera"?`${engineeringProgramNames[selectedEngineering]} — universiti yang telah disahkan`:selected==="akauntan"?`${financeProgramNames[selectedFinance]} — universiti yang telah disahkan`:"Universiti yang menawarkan program berkaitan"}</h2><p>{selected==="jurutera"?"Hanya rekod dengan syarat program yang dapat disahkan daripada halaman rasmi semasa dipaparkan. Universiti lain akan ditambah selepas dokumen programnya disahkan.":"Angka khusus dipaparkan apabila diterbitkan oleh universiti. Syarat khas program tetap wajib dipenuhi."}</p></div><a href="https://upu.mohe.gov.my/PEKELILING%20KEMASUKAN%20STPM_MATRIK_ASASI_STAM%20KE%20UNIVERSITI%20AWAM%20SESI%20AKADEMIK%202627.pdf" target="_blank" rel="noopener noreferrer">Pekeliling rasmi 2026/2027 <ExternalLink/></a></div>
+   <div className="compare-heading"><div><small>SYARAT KHAS PROGRAM · SESI 2026/2027</small><h2>{selected==="jurutera"?`${engineeringProgramNames[selectedEngineering]} — universiti yang telah disahkan`:selected==="guru"?`${educationProgramNames[selectedEducation]} — universiti yang telah disahkan`:selected==="akauntan"?`${financeProgramNames[selectedFinance]} — universiti yang telah disahkan`:"Universiti yang menawarkan program berkaitan"}</h2><p>{selected==="jurutera"?"Hanya rekod dengan syarat program yang dapat disahkan daripada halaman rasmi semasa dipaparkan. Universiti lain akan ditambah selepas dokumen programnya disahkan.":"Angka khusus dipaparkan apabila diterbitkan oleh universiti. Syarat khas program tetap wajib dipenuhi."}</p></div><a href="https://upu.mohe.gov.my/PEKELILING%20KEMASUKAN%20STPM_MATRIK_ASASI_STAM%20KE%20UNIVERSITI%20AWAM%20SESI%20AKADEMIK%202627.pdf" target="_blank" rel="noopener noreferrer">Pekeliling rasmi 2026/2027 <ExternalLink/></a></div>
    {numeric.length===1&&<div className="range-cards"><div><small>PNGK MINIMUM YANG DIREKODKAN</small><strong>{numeric[0].pngk.toFixed(2)}</strong><span>{numeric[0].uni}</span></div></div>}
    {numeric.length>1&&<div className="range-cards"><div><small>PNGK MINIMUM TERENDAH</small><strong>{low!.pngk.toFixed(2)}</strong><span>{low!.uni}</span></div><div><small>PNGK MINIMUM TERTINGGI</small><strong>{high!.pngk.toFixed(2)}</strong><span>{high!.uni}</span></div></div>}
    <div className="requirement-table-wrap"><table className="requirement-table"><thead><tr><th>Universiti & program</th><th>PNGK minimum rasmi</th><th>Merit rujukan UPU 2026</th><th>Keperluan SPM</th><th>Keperluan STPM</th><th>MUET</th><th>Lain-lain</th><th>Sumber</th></tr></thead><tbody>{requirements.map(r=><tr key={r.uni+r.program}><td><b>{r.uni}</b><span>{r.program}</span></td><td><strong>{r.pngk===null?"Tiada makluman rasmi":r.pngk.toFixed(2)}</strong><span>{r.pngk===null?"pada halaman program":"Syarat minimum"}</span></td><td>{r.merit?<strong>{r.merit.toFixed(2)}%</strong>:<span className="merit-pending">Tiada makluman rasmi</span>}</td><td>{r.spm}</td><td>{r.stpm}</td><td>{r.muet.startsWith("Semak")?"Tiada makluman rasmi":r.muet}</td><td>{r.extra}</td><td><a href={r.source} target="_blank" rel="noopener noreferrer" aria-label={`Sumber rasmi ${r.uni}`}><ExternalLink/> Rasmi</a></td></tr>)}</tbody></table></div>
