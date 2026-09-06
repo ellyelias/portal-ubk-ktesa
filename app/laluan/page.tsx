@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const careers = {
   peguam: {
-    name:"Peguam", course:"Ijazah Sarjana Muda Undang-undang (LLB)", stream:"Terbuka kepada aliran Sains atau Sastera, tertakluk kepada syarat universiti.",
+    name:"Undang-undang", course:"Undang-undang (LLB) / Syariah & Undang-undang / bidang undang-undang berkaitan", stream:"Terbuka kepada aliran Sains atau Sastera, tertakluk kepada syarat universiti.",
     spm:["Bahasa Melayu dan Sejarah mesti memenuhi syarat am kemasukan.","Bahasa Inggeris sangat penting; sesetengah universiti menetapkan gred atau MUET yang lebih tinggi.","Matematik diperlukan oleh sesetengah program undang-undang."],
     stpm:["Pengajian Am","Bahasa Melayu atau Sejarah","Ekonomi, Pengajian Perniagaan atau subjek lain yang mengasah kemahiran berhujah"],
     target:"Sasarkan PNGK 3.50 ke atas, sekurang-kurangnya B+ bagi subjek utama dan MUET Band 4 atau lebih tinggi.",
@@ -21,7 +21,7 @@ const careers = {
     source:"https://online.mohe.gov.my/epanduan/"
   },
   akauntan: {
-    name:"Akauntan", course:"Ijazah Sarjana Muda Perakaunan / Kewangan", stream:"Aliran Sastera atau Sains, bergantung pada program.",
+    name:"Perakaunan, Kewangan & Ekonomi", course:"Perakaunan / Kewangan / Ekonomi / Perbankan & Kewangan Islam", stream:"Aliran Sastera atau Sains, bergantung pada program.",
     spm:["Matematik atau Matematik Tambahan biasanya diberi perhatian.","Prinsip Perakaunan dan Bahasa Inggeris membantu, walaupun tidak diwajibkan oleh semua universiti."],
     stpm:["Ekonomi","Pengajian Perniagaan","Mathematics atau subjek lain yang diterima program"],
     target:"Sasarkan sekurang-kurangnya B+ dalam subjek berkaitan dan PNGK 3.30 ke atas untuk pilihan yang lebih luas.",
@@ -37,7 +37,7 @@ const careers = {
     source:"https://study.um.edu.my/bachelor-of-electrical-engineering"
   },
   guru: {
-    name:"Guru", course:"Ijazah Sarjana Muda Pendidikan", stream:"Aliran bergantung pada bidang pengkhususan.",
+    name:"Pendidikan", course:"Pendidikan / TESL / Pendidikan Khas / Pendidikan Sains & Matematik / Pendidikan Sukan", stream:"Aliran bergantung pada bidang pengkhususan.",
     spm:["Bahasa Melayu dan Sejarah perlu memenuhi syarat am.","Subjek yang hendak diajar perlu mempunyai keputusan yang kuat."],
     stpm:["Pilih subjek yang sepadan dengan opsyen pengajaran","Pengajian Am","Kukuhkan Bahasa Inggeris dan MUET"],
     target:"Sasarkan B+ atau A dalam subjek pengkhususan serta PNGK sekurang-kurangnya 3.00.",
@@ -69,7 +69,7 @@ const careers = {
     source:"https://study.um.edu.my/bachelor-of-computer-science-computer-system-and-network"
   },
   sains: {
-    name:"Sains & Penyelidikan", course:"Fizik / Kimia / Biologi / Matematik / Statistik / Sains Bahan", stream:"Laluan Sains mengikut bidang pengkhususan.",
+    name:"Sains Tulen & Sains Gunaan", course:"Fizik / Kimia / Biologi / Sains Bahan / Geosains / Sains Forensik", stream:"Laluan Sains mengikut bidang pengkhususan.",
     spm:["Matematik dan subjek Sains berkaitan perlu diberi perhatian.","Matematik Tambahan penting untuk Fizik, Matematik dan Statistik."],
     stpm:["Physics, Chemistry atau Biology mengikut program","Mathematics","Pengajian Am"],
     target:"Sasarkan PNGK 3.00 ke atas dan keputusan kukuh dalam subjek pengkhususan.",
@@ -77,12 +77,28 @@ const careers = {
     source:"https://online.mohe.gov.my/epanduan/"
   },
   perniagaan: {
-    name:"Perniagaan, Ekonomi & Kewangan", course:"Ekonomi / Kewangan / Perniagaan / Pemasaran / Sumber Manusia", stream:"Terbuka kepada aliran Sains atau Sains Sosial mengikut program.",
+    name:"Perniagaan, Pengurusan & Keusahawanan", course:"Pengurusan / Pemasaran / Sumber Manusia / Keusahawanan / Perniagaan Antarabangsa", stream:"Terbuka kepada aliran Sains atau Sains Sosial mengikut program.",
     spm:["Matematik sering menjadi syarat khusus untuk Ekonomi, Kewangan dan Analitik.","Bahasa Inggeris membantu untuk pengajian dan komunikasi profesional."],
     stpm:["Ekonomi","Pengajian Perniagaan","Mathematics atau subjek yang diterima program"],
     target:"Sasarkan PNGK 3.00 ke atas; program popular dan analitik biasanya lebih kompetitif.",
     official:"Bezakan syarat Ekonomi, Kewangan, Perbankan, Pemasaran dan Pengurusan kerana setiap program tidak sama.",
     source:"https://online.mohe.gov.my/epanduan/"
+  },
+  matematik: {
+    name:"Matematik, Statistik & Aktuari", course:"Matematik / Statistik / Sains Aktuari / Matematik Industri / Analitik Kuantitatif", stream:"Paling sesuai untuk aliran Sains yang mengambil Mathematics; syarat khusus berbeza mengikut universiti.",
+    spm:["Matematik dan Matematik Tambahan sangat penting untuk laluan kuantitatif.","Sesetengah program turut menyemak keputusan subjek Sains dan Bahasa Inggeris."],
+    stpm:["Mathematics","Physics, Chemistry atau Biology bagi program yang mensyaratkannya","MUET mengikut syarat universiti"],
+    target:"Sasarkan sekurang-kurangnya B+ atau A- dalam Mathematics dan PNGK 3.30 ke atas. Sains Aktuari biasanya lebih kompetitif berbanding Matematik atau Statistik.",
+    official:"Contoh UM 2026: Matematik minimum PNGK 3.00; Sains Aktuari minimum PNGK 3.50. Kedua-duanya memerlukan sekurang-kurangnya B- dalam Mathematics/Matematik Tambahan dan B- dalam satu daripada Biology, Physics atau Chemistry; MUET Band 3.0.",
+    source:"https://study.um.edu.my/bachelor-of-actuarial-science"
+  },
+  senibina: {
+    name:"Senibina (Arkitek)", course:"Sarjana Muda Senibina / Sains Senibina / Seni Bina Landskap", stream:"Aliran Sains lazimnya diperlukan; sesetengah universiti menerima Sains Sosial dengan subjek tertentu.",
+    spm:["Kepujian Matematik diperlukan oleh hampir semua program; sesetengah turut mensyaratkan Matematik Tambahan.","Kepujian Bahasa Melayu dan lulus Sejarah mengikut syarat am universiti.","Seni Visual/Lukisan Kejuruteraan menjadi kelebihan tetapi tidak lagi wajib di kebanyakan program."],
+    stpm:["Minimum Gred B hingga B- dalam sekurang-kurangnya dua subjek diterima: Matematik M/T, Fizik, Kimia, Biologi, Geografi, Sejarah, Ekonomi, Seni Visual, Perakaunan, Pengajian Perniagaan atau ICT","PNGK keseluruhan antara 2.00 hingga 3.00 bergantung universiti"],
+    target:"Program ini sangat kompetitif dan melibatkan ujian lukisan serta temu duga wajib — sasarkan PNGK 3.00 ke atas untuk pilihan yang lebih luas.",
+    official:"Contoh: UTM dan USM mensyaratkan PNGK minimum 3.00, manakala UPM menerima PNGK minimum 2.00; ketiga-tiganya tetap mewajibkan ujian dan/atau temu duga.",
+    source:"https://admission.utm.my/wp-content/uploads/sites/461/2026/02/SYARAT-KHAS-SARJANA-MUDA-UTM-SESI-20262027.pdf"
   },
   kreatif: {
     name:"Seni, Reka Bentuk & Media", course:"Reka Bentuk / Seni Halus / Animasi / Multimedia / Komunikasi / Media", stream:"Terbuka kepada Sains atau Sains Sosial; portfolio mungkin diperlukan.",
@@ -165,12 +181,14 @@ const packages:Record<PackageKey,PackageInfo>={
  p1:{name:"Pakej 1",stream:"Aliran Sains",subjects:["Pengajian Am","Physics","Chemistry","Mathematics","MUET"],fields:[
   {name:"Kejuruteraan & Teknologi",courses:"Kejuruteraan Elektrik, Mekanikal, Awam, Kimia atau Mekatronik",careers:"Jurutera, pegawai teknikal, penyelidik"},
   {name:"Komputer & Data",courses:"Sains Komputer, Teknologi Maklumat, Kejuruteraan Perisian, Sains Data",careers:"Pembangun perisian, penganalisis data, keselamatan siber"},
-  {name:"Sains Fizikal",courses:"Fizik, Kimia, Sains Bahan, Matematik atau Statistik",careers:"Pegawai sains, ahli kimia, ahli statistik, penyelidik"}
+  {name:"Sains Fizikal",courses:"Fizik, Kimia, Sains Bahan atau Geosains",careers:"Pegawai sains, ahli fizik, ahli kimia, penyelidik"},
+  {name:"Matematik, Statistik & Aktuari",courses:"Matematik, Statistik, Sains Aktuari atau Matematik Industri",careers:"Ahli statistik, aktuari, penganalisis kuantitatif, penganalisis data"}
  ],note:"Pakej ini paling sesuai untuk bidang berasaskan Physics dan Mathematics. Program kesihatan yang mewajibkan Biology STPM perlu disemak dengan teliti."},
  p2:{name:"Pakej 2",stream:"Aliran Sains",subjects:["Pengajian Am","Biology","Chemistry","Mathematics","MUET"],fields:[
   {name:"Kesihatan & Klinikal",courses:"Perubatan, Farmasi, Pergigian atau Sains Kesihatan",careers:"Doktor, pegawai farmasi, pegawai sains kesihatan"},
   {name:"Biologi Gunaan",courses:"Bioteknologi, Bioperubatan, Mikrobiologi, Sains Makanan",careers:"Pegawai penyelidik, ahli mikrobiologi, pegawai makmal"},
-  {name:"Alam Sekitar & Pertanian",courses:"Sains Alam Sekitar, Sains Pertanian, Perhutanan atau Pemakanan",careers:"Pegawai alam sekitar, pegawai pertanian, penyelidik"}
+  {name:"Alam Sekitar & Pertanian",courses:"Sains Alam Sekitar, Sains Pertanian, Perhutanan atau Pemakanan",careers:"Pegawai alam sekitar, pegawai pertanian, penyelidik"},
+  {name:"Matematik, Statistik & Aktuari",courses:"Matematik, Statistik, Sains Aktuari atau Analitik Kuantitatif",careers:"Ahli statistik, aktuari, penganalisis risiko, penganalisis data"}
  ],note:"Pakej utama untuk bidang Biology dan Chemistry. Sesetengah program perubatan atau kesihatan turut menyemak Physics pada peringkat SPM."},
  p3:{name:"Pakej 3",stream:"Aliran Sains Sosial",subjects:["Pengajian Am","Sains Sukan","Pengajian Perniagaan","Sejarah","MUET"],fields:[
   {name:"Sukan",courses:"Sains Sukan, Pengurusan Sukan, Kejurulatihan atau Rekreasi",careers:"Pegawai sukan, jurulatih, pengurus acara sukan"},
@@ -260,7 +278,7 @@ const careerBranches:Record<CareerKey,Branch[]>={
   {name:"Kewangan",study:"Pelaburan, pasaran modal, risiko dan kewangan korporat",careers:"Penganalisis kewangan, pegawai pelaburan, pengurus risiko"},
   {name:"Perbankan & Kewangan Islam",study:"Operasi bank, kredit, syariah dan produk kewangan",careers:"Pegawai bank, penasihat syariah, penganalisis kredit"},
   {name:"Teknologi Kewangan",study:"Pembayaran digital, blockchain, data dan automasi kewangan",careers:"Penganalisis fintech, pengurus produk digital, pegawai pematuhan teknologi"},
-  {name:"Aktuari",study:"Kebarangkalian, statistik, risiko dan pemodelan kewangan",careers:"Aktuari, penganalisis risiko, penganalisis insurans"},
+  {name:"Percukaian",study:"Cukai individu, syarikat, pematuhan dan perancangan cukai",careers:"Eksekutif cukai, perunding cukai, pegawai pematuhan"},
   {name:"Analitik Perniagaan",study:"Data, visualisasi, ramalan dan keputusan perniagaan",careers:"Penganalisis perniagaan, penganalisis data, perunding"},
   {name:"Forensik Kewangan",study:"Siasatan penipuan, transaksi dan bukti kewangan",careers:"Akauntan forensik, penyiasat fraud, juruaudit dalaman"},
   {name:"Ekonomi",study:"Pasaran, dasar, pembangunan dan analisis kuantitatif",careers:"Ahli ekonomi, penganalisis dasar, penyelidik"}
@@ -303,7 +321,7 @@ const careerBranches:Record<CareerKey,Branch[]>={
   {name:"Fizik",study:"Mekanik, bahan, elektronik, optik dan pemodelan",careers:"Pegawai sains, penyelidik, ahli fizik perubatan selepas pengajian lanjut"},
   {name:"Kimia",study:"Analisis, sintesis, bahan dan proses",careers:"Ahli kimia, pegawai makmal, pegawai kualiti"},
   {name:"Biologi",study:"Organisma, ekologi, genetik dan sel",careers:"Pegawai sains, ahli biologi, penyelidik"},
-  {name:"Matematik & Statistik",study:"Pemodelan, kebarangkalian, pengoptimuman dan analisis",careers:"Ahli statistik, penganalisis kuantitatif, saintis data"},
+  {name:"Sains Nuklear",study:"Fizik nuklear, radiasi, pengesanan, keselamatan dan aplikasi industri",careers:"Pegawai sains nuklear, pegawai perlindungan radiasi, penyelidik"},
   {name:"Sains Bahan",study:"Logam, polimer, semikonduktor dan bahan nano",careers:"Pegawai bahan, penyelidik semikonduktor, pegawai kualiti"},
   {name:"Geosains",study:"Bumi, mineral, geofizik dan pemetaan",careers:"Ahli geologi, pegawai geosains, penganalisis GIS"},
   {name:"Sains Angkasa",study:"Astronomi, atmosfera, penderiaan jauh dan data",careers:"Pegawai penyelidik, penganalisis satelit, komunikator sains"},
@@ -382,6 +400,22 @@ const careerBranches:Record<CareerKey,Branch[]>={
   {name:"Geomatik & Geoinformatik",study:"Ukur, pemetaan, GIS, dron, satelit dan data spatial",careers:"Juruukur geomatik, penganalisis GIS, pegawai geospatial"},
   {name:"Hartanah",study:"Penilaian, pasaran, undang-undang, pelaburan dan pengurusan aset",careers:"Penilai harta, eksekutif hartanah, pengurus fasiliti"},
   {name:"Pengurusan Pembinaan",study:"Projek, kos, masa, keselamatan, teknologi dan operasi tapak",careers:"Eksekutif projek, pengurus pembinaan, pegawai perancangan projek"}
+ ],
+ matematik:[
+  {name:"Matematik",study:"Kalkulus, algebra, analisis, persamaan pembezaan, pengoptimuman dan pemodelan",careers:"Ahli matematik, penganalisis kuantitatif, penyelidik, penganalisis operasi"},
+  {name:"Statistik",study:"Kebarangkalian, inferens, regresi, pensampelan, reka bentuk eksperimen dan analisis data",careers:"Ahli statistik, penganalisis data, penyelidik pasaran, pegawai analitik"},
+  {name:"Sains Aktuari",study:"Matematik kewangan, statistik, risiko, insurans, pelaburan dan pemodelan aktuari",careers:"Aktuari, perunding aktuari, penganalisis risiko, penganalisis insurans"},
+  {name:"Matematik Industri",study:"Pemodelan masalah industri, pengoptimuman, simulasi, komputasi dan operasi",careers:"Penganalisis operasi, penganalisis sistem, penganalisis kuantitatif"},
+  {name:"Sains Data Kuantitatif",study:"Statistik, pengaturcaraan, pemodelan, pembelajaran mesin dan visualisasi data",careers:"Saintis data, penganalisis data, penganalisis produk"},
+  {name:"Penyelidikan Operasi",study:"Pengoptimuman, simulasi, teori keputusan, logistik dan perancangan sumber",careers:"Penganalisis operasi, perancang rantaian bekalan, perunding analitik"},
+  {name:"Matematik Kewangan",study:"Kewangan kuantitatif, derivatif, risiko, portfolio dan pemodelan stokastik",careers:"Penganalisis kuantitatif, penganalisis pelaburan, pengurus risiko"},
+  {name:"Kriptografi & Matematik Komputasi",study:"Teori nombor, algoritma, keselamatan maklumat dan pengiraan saintifik",careers:"Penganalisis kriptografi, penyelidik keselamatan, pembangun algoritma"}
+ ],
+ senibina:[
+  {name:"Senibina (Sarjana Muda Senibina / Sains Senibina)",study:"Reka bentuk bangunan, teori senibina, studio, teknologi binaan dan sejarah senibina",careers:"Pembantu arkitek; gelaran 'Arkitek' berdaftar memerlukan latihan praktikal dan peperiksaan Lembaga Arkitek Malaysia (LAM) selepas ijazah"},
+  {name:"Seni Bina Landskap",study:"Reka bentuk ruang luar, tumbuhan, ekologi tapak dan perancangan landskap",careers:"Pereka landskap, pegawai landskap, perunding reka bentuk luar"},
+  {name:"Senibina Dalaman",study:"Ruang dalaman, bahan, pencahayaan dan pengalaman pengguna dalam bangunan",careers:"Pereka dalaman, perunding ruang, pengurus projek reka bentuk"},
+  {name:"Pengurusan Projek Pembinaan",study:"Kos, jadual, keselamatan dan koordinasi projek pembinaan berskala besar",careers:"Pengurus projek, eksekutif pembinaan, perunding kos"}
  ],
  hospitaliti:[
   {name:"Pengurusan Hotel",study:"Operasi penginapan, khidmat pelanggan, hasil dan pengurusan organisasi",careers:"Eksekutif hotel, pegawai operasi, pengurus perkhidmatan"},
@@ -501,6 +535,19 @@ const comparisons:Record<CareerKey,Requirement[]>={
   {uni:"Universiti Teknologi Malaysia (UTM)",program:"Seni Bina / Ukur Bahan / Perancangan Bandar dan Wilayah / Seni Bina Landskap",pngk:null,spm:"Matematik serta syarat khas mengikut program",stpm:"Kombinasi subjek diterima mengikut program",muet:"Tiada makluman rasmi",extra:"Portfolio, ujian atau temu duga boleh dikenakan bagi program tertentu",source:"https://builtsurvey.utm.my/academic/undergraduate/quantity-surveying/"},
   {uni:"Universiti Teknologi MARA (UiTM)",program:"Program Alam Bina, Ukur dan Hartanah",pngk:null,spm:"Syarat Matematik, Sains atau Seni mengikut program",stpm:"Syarat khas program perlu dipenuhi",muet:"Tiada makluman rasmi",extra:"Tertakluk syarat kelayakan UiTM",source:"https://online.mohe.gov.my/epanduan/"}
  ],
+ matematik:[
+  {uni:"Universiti Malaya (UM)",program:"Sarjana Muda Sains dalam Matematik",pngk:3.00,spm:"Memenuhi syarat am SPM universiti; asas Matematik yang kukuh sangat penting",stpm:"Minimum B- dalam Mathematics/Matematik Tambahan dan minimum B- dalam satu daripada Biology, Physics atau Chemistry",muet:"Band 3.0",extra:"Halaman rasmi dikemas kini 16 Mei 2026",source:"https://study.um.edu.my/bachelor-of-science-of-mathematics"},
+  {uni:"Universiti Malaya (UM)",program:"Sarjana Muda Sains Aktuari",pngk:3.50,spm:"Memenuhi syarat am SPM universiti; asas Matematik yang kukuh sangat penting",stpm:"Minimum B- dalam Mathematics/Matematik Tambahan dan minimum B- dalam satu daripada Biology, Physics atau Chemistry",muet:"Band 3.0",extra:"Program 4 tahun; halaman rasmi dikemas kini 16 Mei 2026",source:"https://study.um.edu.my/bachelor-of-actuarial-science"},
+  {uni:"Universiti Kebangsaan Malaysia (UKM)",program:"Sarjana Muda Sains dengan Kepujian (Matematik)",pngk:null,spm:"Kepujian Bahasa Melayu dan lulus Sejarah serta syarat khas program",stpm:"Memenuhi syarat khas program Matematik UKM",muet:"Sekurang-kurangnya Band 1.0 bagi syarat am UKM; semak syarat khas program",extra:"Program disenaraikan secara rasmi dalam kelompok Sains & Teknologi",source:"https://www.ukm.my/portal/undergraduate-programmes/"},
+  {uni:"Universiti Kebangsaan Malaysia (UKM)",program:"Sarjana Muda Sains dengan Kepujian (Statistik)",pngk:null,spm:"Kepujian Bahasa Melayu dan lulus Sejarah serta syarat khas program",stpm:"Memenuhi syarat khas program Statistik UKM",muet:"Sekurang-kurangnya Band 1.0 bagi syarat am UKM; semak syarat khas program",extra:"Program disenaraikan secara rasmi dalam kelompok Sains & Teknologi",source:"https://www.ukm.my/portal/undergraduate-programmes/"},
+  {uni:"Universiti Kebangsaan Malaysia (UKM)",program:"Sarjana Muda Sains dengan Kepujian (Sains Aktuari)",pngk:null,spm:"Kepujian Bahasa Melayu dan lulus Sejarah serta syarat khas program",stpm:"Memenuhi syarat khas program Sains Aktuari UKM",muet:"Sekurang-kurangnya Band 1.0 bagi syarat am UKM; semak syarat khas program",extra:"Program bertanda # dan boleh melibatkan ujian/temu duga",source:"https://www.ukm.my/portal/undergraduate-programmes/"}
+ ],
+ senibina:[
+  {uni:"Universiti Teknologi Malaysia (UTM)",program:"Sarjana Muda Sains Senibina (Kod UT6581001)",pngk:3.00,spm:"Kepujian Matematik",stpm:"Minimum Gred B dalam mana-mana 2 subjek: Matematik M/T, Fizik, Kimia, Biologi, Geografi, Sejarah, Ekonomi, Seni Visual, Perakaunan, Pengajian Perniagaan, ICT atau Sains Sukan",muet:"Band 2.0",extra:"Ujian dan temu duga wajib; calon perlu bebas masalah penglihatan mengikut polisi Lembaga Arkitek Malaysia",source:"https://admission.utm.my/wp-content/uploads/sites/461/2026/02/SYARAT-KHAS-SARJANA-MUDA-UTM-SESI-20262027.pdf",spmRules:[{subject:"Matematik",minimum:"C"}]},
+  {uni:"Universiti Sains Malaysia (USM)",program:"Sarjana Muda Sains Senibina",pngk:3.00,spm:"Kepujian Bahasa Melayu dan lulus Sejarah",stpm:"Minimum Gred B (NGMP 3.00) dalam mana-mana 2 subjek: Geografi, Sejarah, Ekonomi, Seni Visual, Pengajian Perniagaan, Perakaunan, Fizik, Kimia, Biologi atau Matematik M/T",muet:"Band 2.0",extra:"Ujian lukisan dan temu duga wajib",source:"https://admission.usm.my/index.php/undergraduate/undergraduate-malaysian?view=article&id=839&catid=63"},
+  {uni:"Universiti Putra Malaysia (UPM)",program:"Bacelor Sains Seni Bina (Kod UP6581002)",pngk:2.00,spm:"Kepujian Bahasa Melayu dan Matematik/Matematik Tambahan",stpm:"Syarat khas subjek perlu disemak dalam buku syarat rasmi UPM",muet:"Band 2.0",extra:"Program bertanda #; wajib lulus ujian dan/atau temu duga yang ditetapkan",source:"https://akademik.upm.edu.my/upload/dokumen/menul320250227081643Syarat_Kemasukan_Program_Bacelor_UPM_2025-2026.pdf",spmRules:[{subject:"Bahasa Melayu",minimum:"C"},{subject:"Matematik / Matematik Tambahan",minimum:"C"}]},
+  {uni:"Universiti Putra Malaysia (UPM)",program:"Bacelor Seni Bina Landskap dengan Kepujian (Kod UP6581001)",pngk:2.00,spm:"Kepujian Bahasa Melayu dan Matematik/Matematik Tambahan",stpm:"Syarat khas subjek perlu disemak dalam buku syarat rasmi UPM",muet:"Band 2.0",extra:"Wajib lulus ujian dan/atau temu duga yang ditetapkan",source:"https://frsb.upm.edu.my/academic/undergraduate/bachelor_of_landscape_architecture_with_honours-77862?L=bm"}
+ ],
  hospitaliti:[
   {uni:"Universiti Teknologi MARA (UiTM)",program:"Pengurusan Hospitaliti / Pengurusan Pelancongan / Perkhidmatan Makanan",pngk:null,spm:"Syarat am dan khas mengikut program",stpm:"Syarat khas program perlu dipenuhi",muet:"Tiada makluman rasmi",extra:"Program mempunyai komponen praktikal dan latihan industri",source:"https://fhtm.uitm.edu.my/"},
   {uni:"Universiti Utara Malaysia (UUM)",program:"Program berkaitan Pelancongan, Hospitaliti dan Pengurusan Acara",pngk:null,spm:"Bahasa dan Matematik mengikut program",stpm:"Syarat khas program",muet:"Tiada makluman rasmi",extra:"Semak program sebenar dalam e-Panduan UPU",source:"https://www.uum.edu.my/admissions/application-guidelines/undergraduate-local"}
@@ -509,6 +556,32 @@ const comparisons:Record<CareerKey,Requirement[]>={
   {uni:"Universiti Utara Malaysia (UUM)",program:"Logistik, Pengangkutan dan Pengurusan Operasi",pngk:null,spm:"Matematik dan syarat am mengikut program",stpm:"Syarat khas program perlu dipenuhi",muet:"Tiada makluman rasmi",extra:"Bandingkan pengurusan logistik, operasi dan perniagaan antarabangsa",source:"https://www.uum.edu.my/admissions/application-guidelines/undergraduate-local"},
   {uni:"Universiti Teknologi MARA (UiTM)",program:"Pengangkutan, Operasi dan Rantaian Bekalan",pngk:null,spm:"Matematik dan Bahasa Inggeris mengikut program",stpm:"Syarat khas program perlu dipenuhi",muet:"Tiada makluman rasmi",extra:"Tertakluk syarat kelayakan UiTM",source:"https://online.mohe.gov.my/epanduan/"},
   {uni:"Universiti Malaysia Terengganu (UMT)",program:"Program berkaitan Maritim dan Operasi Pelabuhan",pngk:null,spm:"Syarat Matematik atau Sains mengikut program",stpm:"Kombinasi subjek mengikut program",muet:"Tiada makluman rasmi",extra:"Bezakan program pengurusan maritim daripada kejuruteraan marin",source:"https://online.mohe.gov.my/epanduan/"}
+ ]
+};
+type FinanceProgramKey="perakaunan"|"kewangan"|"ekonomi"|"islamik";
+const financeProgramNames:Record<FinanceProgramKey,string>={
+ perakaunan:"Perakaunan",kewangan:"Kewangan",ekonomi:"Ekonomi",islamik:"Perbankan & Kewangan Islam"
+};
+const financeComparisons:Record<FinanceProgramKey,Requirement[]>={
+ perakaunan:[
+  {uni:"Universiti Malaya (UM)",program:"Bachelor in Accounting",pngk:3.30,spm:"Sekurang-kurangnya Gred B dalam Bahasa Inggeris dan Mathematics/Additional Mathematics",stpm:"Minimum Gred B- dalam dua subjek",muet:"Band 4.0",extra:"3.5 tahun · halaman rasmi dikemas kini 6 Mei 2026",source:"https://study.um.edu.my/bachelor-in-accounting",spmRules:[{subject:"Bahasa Inggeris",minimum:"B"},{subject:"Matematik / Matematik Tambahan",minimum:"B"}]},
+  {uni:"Universiti Utara Malaysia (UUM)",program:"Sarjana Muda Perakaunan dengan Kepujian",pngk:3.30,spm:"Kepujian Matematik/Matematik Tambahan dan subjek berkaitan jika laluan SPM digunakan",stpm:"Minimum C dalam Perakaunan/Ekonomi/Pengajian Perniagaan atau syarat SPM berkaitan",muet:"Band 3.0",extra:"UU6344001 · 8 semester",source:"https://www.uum.edu.my/admissions/application-guidelines/undergraduate-local/local/bachelor-of-accounting-with-honours",spmRules:[{subject:"Matematik / Matematik Tambahan",minimum:"C"},{subject:"Perakaunan / Ekonomi / Perniagaan",minimum:"C"}]},
+  {uni:"Universiti Utara Malaysia (UUM)",program:"Sarjana Muda Perakaunan (Sistem Maklumat) dengan Kepujian",pngk:3.30,spm:"Kepujian Matematik/Matematik Tambahan dan subjek Perakaunan/Ekonomi/Perniagaan/ICT jika laluan SPM digunakan",stpm:"Minimum C dalam Perakaunan/Ekonomi/Pengajian Perniagaan atau syarat SPM berkaitan",muet:"Band 3.0",extra:"UU6344002 · 8 semester",source:"https://www.uum.edu.my/admissions/application-guidelines/undergraduate-local/local/bachelor-of-accounting-information-system-with-honours",spmRules:[{subject:"Matematik / Matematik Tambahan",minimum:"C"}]},
+  {uni:"Universiti Teknologi MARA (UiTM)",program:"Sarjana Muda Perakaunan (Kepujian)",pngk:3.00,spm:"Empat kepujian termasuk Matematik/Matematik Tambahan/Matematik Kertas Julai",stpm:"Gred B dalam Perakaunan atau Ekonomi dan satu lagi subjek selain Pengajian Am",muet:"Band 3.0",extra:"Tertakluk kelayakan UiTM",source:"https://accountancy.uitm.edu.my/index.php/en/component/content/article/32-ac240-bachelor-in-accounting-honours?Itemid=101&catid=19",spmRules:[{subject:"Matematik / Matematik Tambahan",minimum:"C"}]},
+  {uni:"Universiti Putra Malaysia (UPM)",program:"Bacelor Perakaunan (Kepujian)",pngk:null,spm:"Program disahkan masih ditawarkan; semak dokumen syarat sesi semasa",stpm:"Syarat khas program perlu disemak mengikut sesi kemasukan",muet:"Semak syarat rasmi sesi semasa",extra:"Tidak memaparkan angka 2026/2027 tanpa dokumen khusus sesi tersebut",source:"https://econ.upm.edu.my/students/prospective_students/undergraduate_prospective_students-64453"}
+ ],
+ kewangan:[
+  {uni:"Universiti Malaya (UM)",program:"Bachelor of Finance",pngk:3.00,spm:"Sekurang-kurangnya Gred B dalam Bahasa Inggeris dan Mathematics/Additional Mathematics",stpm:"Minimum Gred B- dalam dua subjek",muet:"Semak halaman rasmi semasa",extra:"Program semasa Fakulti Perniagaan dan Ekonomi UM",source:"https://study.um.edu.my/bachelor-of-finance",spmRules:[{subject:"Bahasa Inggeris",minimum:"B"},{subject:"Matematik / Matematik Tambahan",minimum:"B"}]},
+  {uni:"Universiti Utara Malaysia (UUM)",program:"Sarjana Muda Kewangan dengan Kepujian",pngk:2.50,spm:"Kepujian Matematik atau lulus Matematik Tambahan",stpm:"Minimum C+ dalam dua subjek termasuk Mathematics (M/T), Perakaunan, Ekonomi atau Pengajian Perniagaan",muet:"Band 3.0",extra:"UU6343001 · 8 semester",source:"https://www.uum.edu.my/admissions/application-guidelines/undergraduate-local/local/bachelor-of-finance-with-honours",spmRules:[{subject:"Matematik",minimum:"C"}]},
+  {uni:"Universiti Putra Malaysia (UPM)",program:"Bacelor Kewangan Gunaan dengan Kepujian",pngk:null,spm:"Rujuk syarat rasmi UPM mengikut sesi",stpm:"Dokumen 2025/2026: minimum C+ dalam dua subjek daripada Mathematics M/T, Ekonomi, Geografi, Perakaunan atau Pengajian Perniagaan",muet:"Semak syarat sesi semasa",extra:"Syarat angka dilabel 2025/2026 dan tidak dianggap automatik untuk 2026/2027",source:"https://econ.upm.edu.my/students/prospective_students/undergraduate_prospective_students-64453"}
+ ],
+ ekonomi:[
+  {uni:"Universiti Malaya (UM)",program:"Bachelor of Economics",pngk:3.00,spm:"Memenuhi syarat am SPM dan syarat program semasa",stpm:"Minimum Gred B- dalam dua subjek",muet:"Semak halaman rasmi semasa",extra:"Program semasa Fakulti Perniagaan dan Ekonomi UM",source:"https://study.um.edu.my/bachelor-of-economics"},
+  {uni:"Universiti Utara Malaysia (UUM)",program:"Sarjana Muda Sains Ekonomi dengan Kepujian",pngk:2.50,spm:"Kepujian Matematik atau lulus Matematik Tambahan",stpm:"Minimum C+ dalam dua subjek termasuk Mathematics (M/T) atau Ekonomi",muet:"Band 3.0; alternatif Band 2.0 dengan kepujian Bahasa Inggeris SPM",extra:"UU6314001 · 8 semester",source:"https://www.uum.edu.my/admissions/application-guidelines/undergraduate-local/local/bachelor-of-science-economics-with-honours",spmRules:[{subject:"Matematik",minimum:"C"}]},
+  {uni:"Universiti Putra Malaysia (UPM)",program:"Bacelor Ekonomi dengan Kepujian",pngk:null,spm:"Dokumen 2025/2026 menetapkan sekurang-kurangnya C dalam subjek berkaitan",stpm:"Dokumen 2025/2026: minimum C+ dalam satu subjek berkaitan",muet:"Dokumen 2025/2026: Band 2.0",extra:"Dilabel 2025/2026; semak semula apabila syarat 2026/2027 diterbitkan",source:"https://econ.upm.edu.my/students/prospective_students/undergraduate_prospective_students-64453",spmRules:[{subject:"Matematik / Matematik Tambahan",minimum:"C"}]}
+ ],
+ islamik:[
+  {uni:"Universiti Utara Malaysia (UUM)",program:"Sarjana Muda Kewangan dan Perbankan Islam dengan Kepujian",pngk:null,spm:"Kepujian Matematik/Matematik Tambahan; atau lulus Matematik bersama kepujian subjek Perakaunan/Ekonomi/Perdagangan/Perniagaan",stpm:"Terbuka kepada STPM Sastera atau Sains; syarat am universiti turut terpakai",muet:"Band 2.0",extra:"UU6343002 · 8 semester",source:"https://www.uum.edu.my/admissions/application-guidelines/undergraduate-local/local/bachelor-of-islamic-finance-and-banking-with-honours",spmRules:[{subject:"Matematik / Matematik Tambahan",minimum:"C"}]}
  ]
 };
 type EngineeringProgramKey="elektrik"|"mekanikal"|"awam"|"kimia"|"mekatronik"|"komputer"|"pembuatan"|"bahan"|"aeroangkasa"|"automotif"|"bioperubatan"|"alam_sekitar"|"petroleum"|"marin"|"telekomunikasi";
@@ -582,8 +655,9 @@ export default function LaluanPage(){
  const [selectedPackage,setSelectedPackage]=useState<PackageKey>("p1");
  const [selectedRequirement,setSelectedRequirement]=useState(0);
  const [selectedEngineering,setSelectedEngineering]=useState<EngineeringProgramKey>("elektrik");
+ const [selectedFinance,setSelectedFinance]=useState<FinanceProgramKey>("perakaunan");
  const [spmGrades,setSpmGrades]=useState<Record<string,Grade|"">>({});
- const item=careers[selected]; const requirements=selected==="jurutera"?engineeringComparisons[selectedEngineering]:comparisons[selected]; const packageItem=packages[selectedPackage];
+ const item=careers[selected]; const requirements=selected==="jurutera"?engineeringComparisons[selectedEngineering]:selected==="akauntan"?financeComparisons[selectedFinance]:comparisons[selected]; const packageItem=packages[selectedPackage];
  const numeric=requirements.filter(r=>r.pngk!==null) as (Requirement&{pngk:number})[];
  const low=numeric.length?numeric.reduce((a,b)=>a.pngk<=b.pngk?a:b):null;
  const high=numeric.length?numeric.reduce((a,b)=>a.pngk>=b.pngk?a:b):null;
@@ -609,8 +683,9 @@ export default function LaluanPage(){
    <article className="official-card"><div className="career-card-head"><GraduationCap/><div><small>CONTOH SYARAT SEMASA</small><h3>Semak sebelum memohon</h3></div></div><p>{item.official}</p><a href={item.source} target="_blank" rel="noopener noreferrer">Buka sumber rasmi <ExternalLink/></a></article>
   </div>
   {selected==="jurutera"&&<section className="career-picker"><label htmlFor="engineering-program">Program kejuruteraan untuk dibandingkan</label><select id="engineering-program" value={selectedEngineering} onChange={e=>{setSelectedEngineering(e.target.value as EngineeringProgramKey);setSelectedRequirement(0);setSpmGrades({})}}>{Object.entries(engineeringProgramNames).map(([key,name])=><option key={key} value={key}>{name}</option>)}</select></section>}
+  {selected==="akauntan"&&<section className="career-picker"><label htmlFor="finance-program">Program Perakaunan, Kewangan & Ekonomi untuk dibandingkan</label><select id="finance-program" value={selectedFinance} onChange={e=>{setSelectedFinance(e.target.value as FinanceProgramKey);setSelectedRequirement(0);setSpmGrades({})}}>{Object.entries(financeProgramNames).map(([key,name])=><option key={key} value={key}>{name}</option>)}</select></section>}
   <section className="uni-compare">
-   <div className="compare-heading"><div><small>SYARAT KHAS PROGRAM · SESI 2026/2027</small><h2>{selected==="jurutera"?`${engineeringProgramNames[selectedEngineering]} — universiti yang telah disahkan`:"Universiti yang menawarkan program berkaitan"}</h2><p>{selected==="jurutera"?"Hanya rekod dengan syarat program yang dapat disahkan daripada halaman rasmi semasa dipaparkan. Universiti lain akan ditambah selepas dokumen programnya disahkan.":"Angka khusus dipaparkan apabila diterbitkan oleh universiti. Syarat khas program tetap wajib dipenuhi."}</p></div><a href="https://upu.mohe.gov.my/PEKELILING%20KEMASUKAN%20STPM_MATRIK_ASASI_STAM%20KE%20UNIVERSITI%20AWAM%20SESI%20AKADEMIK%202627.pdf" target="_blank" rel="noopener noreferrer">Pekeliling rasmi 2026/2027 <ExternalLink/></a></div>
+   <div className="compare-heading"><div><small>SYARAT KHAS PROGRAM · SESI 2026/2027</small><h2>{selected==="jurutera"?`${engineeringProgramNames[selectedEngineering]} — universiti yang telah disahkan`:selected==="akauntan"?`${financeProgramNames[selectedFinance]} — universiti yang telah disahkan`:"Universiti yang menawarkan program berkaitan"}</h2><p>{selected==="jurutera"?"Hanya rekod dengan syarat program yang dapat disahkan daripada halaman rasmi semasa dipaparkan. Universiti lain akan ditambah selepas dokumen programnya disahkan.":"Angka khusus dipaparkan apabila diterbitkan oleh universiti. Syarat khas program tetap wajib dipenuhi."}</p></div><a href="https://upu.mohe.gov.my/PEKELILING%20KEMASUKAN%20STPM_MATRIK_ASASI_STAM%20KE%20UNIVERSITI%20AWAM%20SESI%20AKADEMIK%202627.pdf" target="_blank" rel="noopener noreferrer">Pekeliling rasmi 2026/2027 <ExternalLink/></a></div>
    {numeric.length===1&&<div className="range-cards"><div><small>PNGK MINIMUM YANG DIREKODKAN</small><strong>{numeric[0].pngk.toFixed(2)}</strong><span>{numeric[0].uni}</span></div></div>}
    {numeric.length>1&&<div className="range-cards"><div><small>PNGK MINIMUM TERENDAH</small><strong>{low!.pngk.toFixed(2)}</strong><span>{low!.uni}</span></div><div><small>PNGK MINIMUM TERTINGGI</small><strong>{high!.pngk.toFixed(2)}</strong><span>{high!.uni}</span></div></div>}
    <div className="requirement-table-wrap"><table className="requirement-table"><thead><tr><th>Universiti & program</th><th>PNGK minimum rasmi</th><th>Merit rujukan UPU 2026</th><th>Keperluan SPM</th><th>Keperluan STPM</th><th>MUET</th><th>Lain-lain</th><th>Sumber</th></tr></thead><tbody>{requirements.map(r=><tr key={r.uni+r.program}><td><b>{r.uni}</b><span>{r.program}</span></td><td><strong>{r.pngk===null?"Tiada makluman rasmi":r.pngk.toFixed(2)}</strong><span>{r.pngk===null?"pada halaman program":"Syarat minimum"}</span></td><td>{r.merit?<strong>{r.merit.toFixed(2)}%</strong>:<span className="merit-pending">Tiada makluman rasmi</span>}</td><td>{r.spm}</td><td>{r.stpm}</td><td>{r.muet.startsWith("Semak")?"Tiada makluman rasmi":r.muet}</td><td>{r.extra}</td><td><a href={r.source} target="_blank" rel="noopener noreferrer" aria-label={`Sumber rasmi ${r.uni}`}><ExternalLink/> Rasmi</a></td></tr>)}</tbody></table></div>
