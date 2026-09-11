@@ -13,13 +13,14 @@ export default function CounselorDashboard({email,role}:{email:string;role:strin
  async function open(reference:string){setBusy(true);setError("");try{const r=await fetch(`/kaunselor/api?reference=${encodeURIComponent(reference)}`,{cache:"no-store"});const d=await r.json();if(!r.ok)return setError(d.error||"Gagal membuka mesej.");setSelected(d)}catch(err){console.error("Ralat membuka mesej pelajar:",err);setError("Gagal membuka mesej.")}finally{setBusy(false)}}
  async function send(e:FormEvent<HTMLFormElement>){
   e.preventDefault();if(!selected)return;
+  const form=e.currentTarget;
   setBusy(true);setError("");setSuccess("");
   try{
-   const f=new FormData(e.currentTarget);
+   const f=new FormData(form);
    const r=await fetch("/kaunselor/api",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({reference:selected.conversation.referenceCode,message:f.get("message")})});
    const text=await r.text();let d:any={};try{d=text?JSON.parse(text):{}}catch{}
    if(!r.ok)throw new Error(d?.error||text||`Ralat pelayan (${r.status}).`);
-   e.currentTarget.reset();
+   form.reset();
    setSuccess("Jawapan berjaya dihantar kepada pelajar.");
    await open(selected.conversation.referenceCode);
    await loadList();
