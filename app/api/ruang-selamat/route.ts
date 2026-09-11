@@ -1,56 +1,64 @@
-"use client";
-import { FormEvent, useState } from "react";
-import Link from "next/link";
-import { ArrowLeft, CheckCircle2, HandHeart, LockKeyhole, MessageCircle, Send } from "lucide-react";
+import { and, asc, eq } from "drizzle-orm";
+import { getDb } from "../../../db";
+import { conversations, messages } from "../../../db/schema";
 
-type Thread = { conversation: { referenceCode: string; topic: string; status: string }; messages: Array<{ id: number; sender: string; body: string; createdAt: string }> };
+const encoder = new TextEncoder();
+async function hashPin(reference: string, pin: string) {
+  const bytes = encoder.encode(`${reference}:${pin}:KTESA-UBK`);
+  const digest = await crypto.subtle.digest("SHA-256", bytes);
+  return Array.from(new Uint8Array(digest)).map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+function clean(value: unknown, max = 2000) {
+  return typeof value === "string" ? value.trim().slice(0, max) : "";
+}
+function makeReference() {
+  return `RS-${crypto.randomUUID().replaceAll("-", "").slice(0, 5).toUpperCase()}`;
+}
+function makePin() {
+  const values = new Uint32Array(1); crypto.getRandomValues(values);
+  return String(1000 + (values[0] % 9000));
+}
 
-export default function SafeSpacePage() {
-  const [mode, setMode] = useState<"send" | "check">("send");
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState("");
-  const [receipt, setReceipt] = useState<{ reference: string; pin: string } | null>(null);
-  const [thread, setThread] = useState<Thread | null>(null);
-  const [credentials, setCredentials] = useState({ reference: "", pin: "" });
+export async function POST(request: Request) {
+  const data = await request.json() as Record<string, unknown>;
+  const topic = clean(data.topic, 100);
+  const body = clean(data.message);
+  if (!topic || body.length < 5) return Response.json({ error: "Sila pilih perkara dan tulis mesej anda." }, { status: 400 });
+  const reference = makeReference();
+  const pin = makePin();
+  const db = getDb();
+  const [conversation] = await db.insert(conversations).values({
+    referenceCode: reference,
+    pinHash: await hashPin(reference, pin),
+    topic,
+    displayName: clean(data.displayName, 80) || null,
+    contactNumber: clean(data.contactNumber, 30) || null,
+  }).returning();
+  await db.insert(messages).values({ conversationId: conversation.id, sender: "pelajar", body });
+  return Response.json({ reference, pin }, { status: 201 });
+}
 
-  async function submitNew(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault(); setBusy(true); setError("");
-    const form = new FormData(e.currentTarget);
-    const response = await fetch("/api/ruang-selamat", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(Object.fromEntries(form)) });
-    const data = await response.json(); setBusy(false);
-    if (!response.ok) return setError(data.error || "Mesej tidak dapat dihantar.");
-    setReceipt(data);
-  }
-  async function checkMessages(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault(); setBusy(true); setError("");
-    const response = await fetch(`/api/ruang-selamat?reference=${encodeURIComponent(credentials.reference)}&pin=${encodeURIComponent(credentials.pin)}`);
-    const data = await response.json(); setBusy(false);
-    if (!response.ok) return setError(data.error || "Mesej tidak dapat dibuka.");
-    setThread(data);
-  }
-  async function reply(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault(); setBusy(true); setError("");
-    const form = new FormData(e.currentTarget); const message = String(form.get("message") || "");
-    const response = await fetch("/api/ruang-selamat", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ ...credentials, message }) });
-    setBusy(false); if (!response.ok) return setError((await response.json()).error || "Balasan tidak dapat dihantar.");
-    e.currentTarget.reset(); await checkMessages({ preventDefault(){} } as FormEvent<HTMLFormElement>);
-  }
+export async function GET(request: Request) {
+  const url = new URL(request.url);
+  const reference = clean(url.searchParams.get("reference"), 20).toUpperCase();
+  const pin = clean(url.searchParams.get("pin"), 10);
+  const db = getDb();
+  const [conversation] = await db.select().from(conversations).where(and(eq(conversations.referenceCode, reference), eq(conversations.pinHash, await hashPin(reference, pin)))).limit(1);
+  if (!conversation) return Response.json({ error: "Kod rujukan atau PIN tidak betul." }, { status: 404 });
+  const rows = await db.select().from(messages).where(eq(messages.conversationId, conversation.id)).orderBy(asc(messages.createdAt), asc(messages.id));
+  return Response.json({ conversation: { referenceCode: conversation.referenceCode, topic: conversation.topic, status: conversation.status }, messages: rows });
+}
 
-  return <main className="safe-page"><div className="safe-shell">
-    <Link className="back-link" href="/"><ArrowLeft size={18}/> Kembali ke portal</Link>
-    <div className="safe-title"><span><HandHeart/></span><div><small>RUANG SELAMAT</small><h1>Tulis kepada kaunselor</h1><p>Nama tidak diperlukan. Simpan kod rujukan dan PIN untuk membaca jawapan kaunselor.</p></div></div>
-    <div className="safe-tabs"><button className={mode==="send"?"active":""} onClick={()=>{setMode("send");setError("")}}><Send/> Hantar mesej</button><button className={mode==="check"?"active":""} onClick={()=>{setMode("check");setError("")}}><MessageCircle/> Semak jawapan</button></div>
-    {error && <p className="form-error">{error}</p>}
-    {mode === "send" && !receipt && <form className="safe-form" onSubmit={submitNew}>
-      <label>Perkara<select name="topic" required defaultValue=""><option value="" disabled>Pilih perkara</option><option>Akademik</option><option>Keluarga</option><option>Rakan dan hubungan sosial</option><option>Emosi dan kesejahteraan</option><option>Kewangan</option><option>Lain-lain</option></select></label>
-      <label>Mesej<textarea name="message" rows={7} required minLength={5} placeholder="Ceritakan perkara yang anda perlukan bantuan..."/></label>
-      <div className="optional-grid"><label>Nama <small>(pilihan)</small><input name="displayName" placeholder="Boleh dibiarkan kosong"/></label><label>Nombor telefon <small>(pilihan)</small><input name="contactNumber" inputMode="tel" placeholder="Jika mahu dihubungi"/></label></div>
-      <p className="privacy-note"><LockKeyhole/> Maklumat hanya boleh dilihat oleh kaunselor yang dibenarkan.</p>
-      <button className="safe-submit" disabled={busy}>{busy?"Sedang menghantar...":"Hantar kepada kaunselor"}</button>
-    </form>}
-    {receipt && <section className="receipt-card"><CheckCircle2/><h2>Mesej telah dihantar</h2><p>Ambil tangkap layar atau catat kedua-dua maklumat ini.</p><div><span>Kod rujukan<strong>{receipt.reference}</strong></span><span>PIN<strong>{receipt.pin}</strong></span></div><button onClick={()=>{setCredentials(receipt);setMode("check");setReceipt(null)}}>Semak ruang mesej</button></section>}
-    {mode === "check" && !thread && <form className="safe-form compact" onSubmit={checkMessages}><label>Kod rujukan<input required value={credentials.reference} onChange={e=>setCredentials({...credentials,reference:e.target.value.toUpperCase()})} placeholder="RS-XXXXX"/></label><label>PIN<input required inputMode="numeric" maxLength={4} value={credentials.pin} onChange={e=>setCredentials({...credentials,pin:e.target.value})} placeholder="4 digit"/></label><button className="safe-submit" disabled={busy}>{busy?"Membuka...":"Buka mesej"}</button></form>}
-    {thread && <section className="thread-card"><header><div><small>{thread.conversation.referenceCode}</small><h2>{thread.conversation.topic}</h2></div><span>{thread.conversation.status}</span></header><div className="message-list">{thread.messages.map(m=><div key={m.id} className={`message-bubble ${m.sender}`}><small>{m.sender==="kaunselor"?"Kaunselor":"Anda"}</small><p>{m.body}</p></div>)}</div><form onSubmit={reply}><textarea name="message" required rows={3} placeholder="Tulis balasan..."/><button disabled={busy}><Send/> Hantar</button></form></section>}
-    <p className="safety-copy">Jika anda berada dalam keadaan yang memerlukan bantuan segera, hubungi kaunselor secara terus atau maklumkan kepada guru yang berdekatan.</p>
-  </div></main>
+export async function PUT(request: Request) {
+  const data = await request.json() as Record<string, unknown>;
+  const reference = clean(data.reference, 20).toUpperCase();
+  const pin = clean(data.pin, 10);
+  const body = clean(data.message);
+  if (body.length < 2) return Response.json({ error: "Sila tulis mesej." }, { status: 400 });
+  const db = getDb();
+  const [conversation] = await db.select().from(conversations).where(and(eq(conversations.referenceCode, reference), eq(conversations.pinHash, await hashPin(reference, pin)))).limit(1);
+  if (!conversation) return Response.json({ error: "Kod rujukan atau PIN tidak betul." }, { status: 404 });
+  await db.insert(messages).values({ conversationId: conversation.id, sender: "pelajar", body });
+  await db.update(conversations).set({ status: "baharu", updatedAt: new Date().toISOString() }).where(eq(conversations.id, conversation.id));
+  return Response.json({ ok: true });
 }
