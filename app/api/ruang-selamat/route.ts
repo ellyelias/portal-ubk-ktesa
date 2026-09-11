@@ -12,11 +12,11 @@ function clean(value: unknown, max = 2000) {
   return typeof value === "string" ? value.trim().slice(0, max) : "";
 }
 function makeReference() {
-  return `RS-${crypto.randomUUID().replaceAll("-", "").slice(0, 8).toUpperCase()}`;
+  return `RS-${crypto.randomUUID().replaceAll("-", "").slice(0, 5).toUpperCase()}`;
 }
 function makePin() {
   const values = new Uint32Array(1); crypto.getRandomValues(values);
-  return String(100000 + (values[0] % 900000));
+  return String(1000 + (values[0] % 9000));
 }
 
 export async function POST(request: Request) {
